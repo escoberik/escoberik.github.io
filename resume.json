@@ -26,5 +26,22 @@
         "url": "https://www.toptal.com/developers/resume/erik-escobedo"
       }
     ]
-  }
+  },
+  "work": [
+    {
+      "name": "Google",
+      "position": "Software Engineer",
+      "url": "https://edu.google.com",
+      "startDate": "2023-01-16",
+      "endDate": "2026-02-09",
+      "summary": "Google Classroom is a learning management platform serving millions of users worldwide. I was involved in maintaining the Classroom API infrastructure, focusing on large-scale migrations and the strategic sunsetting of legacy systems.",
+      "highlights": [
+        "Designed and implemented the database migration for the Google Classroom API: Registrations service, using a Dark Launch approach to validate data for millions of users.",
+        "Architected a synthetic SIS sandbox to facilitate integration testing and AI agent crawling, fed by Google Spreadsheets as a flexible data source for two-way verification across OneRoster 1.1 and 1.2 protocols.",
+        "Mentored junior engineers on software engineering best practices, guiding them through complex system designs, Google’s rigorous code review standards, and career development paths.",
+        "Led the End-of-Life (EOL) process for a legacy platform, coordinating phased account closures and resolving critical data conflicts to ensure a smooth transition for clients before final decommissioning.",
+        "Co-architected a comprehensive test coverage suite for legacy pipelines using SQLT to ensure reliability during system integration of an acquired third party."
+      ]
+    }
+  ]
 }
