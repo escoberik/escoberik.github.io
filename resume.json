@@ -1,1 +1,30 @@
-{}
+{
+  "basics": {
+    "name": "Erik Escobedo",
+    "label": "Software Engineer",
+    "image": "https://erik.escobedo.dev/resume.jpg",
+    "email": "erik@escobedo.dev",
+    "phone": "+52 (999) 969-3090",
+    "url": "https://erik.escobedo.dev",
+    "summary": "I'm a hands-on software architect and full-stack engineer with 16+ years of experience, including 3 years at Google Classroom. I specialize in managing technical debt and transforming legacy complexity into maintainable architecture. I have more than a decade of remote-first experience, bridging the gap between business goals and technical execution, ensuring reliability and performance in every project I'm involved in.",
+    "location": {
+      "address": "103A Calle 13 San Juan II",
+      "postalCode": "97350",
+      "city": "Hunucma",
+      "countryCode": "MX",
+      "region": "Yucatan"
+    },
+    "profiles": [
+      {
+        "network": "Github",
+        "username": "escoberik",
+        "url": "https://github.com/escoberik"
+      },
+      {
+        "network": "Toptal",
+        "username": "erik-escobedo",
+        "url": "https://www.toptal.com/developers/resume/erik-escobedo"
+      }
+    ]
+  }
+}
