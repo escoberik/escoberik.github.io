@@ -32,8 +32,8 @@
       "name": "Google",
       "position": "Software Engineer",
       "url": "https://edu.google.com",
-      "startDate": "2023-01-16",
-      "endDate": "2026-02-09",
+      "startDate": "2023-01",
+      "endDate": "2026-02",
       "summary": "Google Classroom is a learning management platform serving millions of users worldwide. I was involved in maintaining the Classroom API infrastructure, focusing on large-scale migrations and the strategic sunsetting of legacy systems.",
       "highlights": [
         "Designed and implemented the database migration for the Google Classroom API: Registrations service, using a Dark Launch approach to validate data for millions of users.",
@@ -41,6 +41,66 @@
         "Mentored junior engineers on software engineering best practices, guiding them through complex system designs, Google’s rigorous code review standards, and career development paths.",
         "Led the End-of-Life (EOL) process for a legacy platform, coordinating phased account closures and resolving critical data conflicts to ensure a smooth transition for clients before final decommissioning.",
         "Co-architected a comprehensive test coverage suite for legacy pipelines using SQLT to ensure reliability during system integration of an acquired third party."
+      ]
+    },
+    {
+      "name": "FanMaker",
+      "position": "Software Engineer",
+      "url": "https://www.fanmaker.com",
+      "startDate": "2018-08",
+      "endDate": "2022-12",
+      "summary": "FanMaker is a leading sports loyalty and fan engagement platform powering rewards programs for professional teams and universities. I was responsible for maintaining and scaling the infrastructure that powers a wide-range of end-user mobile applications.",
+      "highlights": [
+        "Maintained and extended a Ruby on Rails application providing back-end services for a network of 30+ mobile applications.",
+        "Single-handedly migrated the codebase from Ruby on Rails 2 to Ruby on Rails 3 on a secondary branch while maintaining and adding new features to it in parallel.",
+        "Architected and deployed legal compliance frameworks, enabling the acquisition of a new enterprise-tier client base.",
+        "Engineered a robust double-entry accounting engine for virtual currency, featuring point-in-time reporting capabilities to accurately reconstruct balances and audit logs for any historical or future date.",
+        "Independently managed a Rails 2 to 3 migration by engineering a compatibility layer that supported parallel development and stable feature releases throughout the upgrade process.",
+        "Scaled a high-availability AWS infrastructure to support 1+ million concurrent users, implementing predictive auto-scaling to eliminate manual intervention during peak live event traffic."
+      ]
+    },
+    {
+      "name": "Freelance Work",
+      "position": "Founder & Team Leader",
+      "startDate": "2013-02",
+      "endDate": "2018-08",
+      "summary": "I founded and ran a small organization of local programmers that provided software developer services to international clients, mainly focused in the USA. I was responsible for end-to-end delivery, including technical architecture, project scoping, and talent orchestration.",
+      "highlights": [
+        "Led a freelancer guild group—composed of local programmers sharing an office space; sometimes working independently, sometimes working on the same projects.",
+        "Interviewed and met with leads and customers—helping them to design product strategies and software solutions.",
+        "Mentoring and empowering the most junior members of the group, as well as consulting on their projects.",
+        "Led shared projects and made technology decisions—like what platform to use, what libraries to implement, and what code styles to follow.",
+        "Designed a system and database for both shared and individual projects."
+      ]
+    },
+    {
+      "name": "Simulation Curriculum",
+      "position": "Web Developer",
+      "url": "https://www.simulationcurriculum.com/",
+      "startDate": "2014-11",
+      "endDate": "2016-02",
+      "summary": "Simulation Curriculum is an industry leader in Earth & Space Science software and curriculum solutions. I served as a recurring consultant, providing freelance web development services for a variety of strategic projects.",
+      "highlights": [
+        "Worked alongside David Whips (winner of the Apple Design Awards 2013).",
+        "Led a three-person team assembled by the client—delegating tasks and reporting directly to the client.",
+        "Implemented an independent AngularJS module by using a private API provided by the client.",
+        "Worked with vectors and geometry figures to allow students to draw, drag, split, and reassemble colorful geometric shapes.",
+        "Designed equations that allowed the user to add momentum when dragging movable panels."
+      ]
+    },
+    {
+      "name": "MojoTech",
+      "position": "Ruby on Rails Developer",
+      "url": "https://www.mojotech.com",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "summary": "Mojotech is a premier software consultancy that partners with startups and enterprise clients to build mission-critical digital products. As a Ruby on Rails Developer, I contributed to various high-impact projects, collaborating in agile teams to deliver scalable and maintainable codebases.",
+      "highlights": [
+        "Worked alongside great people like Christopher Shoemaker, a former member of the Mozilla team.",
+        "Built a beautiful human resources management tool using the most advanced front-end technologies available at the time.",
+        "Contributed to a huge real estate application for which I designed a powerful neighborhood search engine.",
+        "Communicated remotely using tools like HipChat, Basecamp, and more for almost 3 years.",
+        "Migrated an existing application from PHP to Ruby on Rails 3.0."
       ]
     }
   ]
