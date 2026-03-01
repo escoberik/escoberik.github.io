@@ -103,5 +103,162 @@
         "Migrated an existing application from PHP to Ruby on Rails 3.0."
       ]
     }
+  ],
+  "education": [
+    {
+      "institution": "Universidad Nacional Autónoma de México (UNAM)",
+      "url": "https://www.ingenieria.unam.mx/",
+      "area": "Mechatronics Engineering",
+      "studyType": "Bachelor's Degree",
+      "startDate": "2006",
+      "endDate": "2010"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Technologies",
+      "keywords": [
+        "HTML",
+        "JavaScript",
+        "CSS",
+        "TypeScript"
+      ]
+    },
+    {
+      "name": "Programming Languages",
+      "keywords": [
+        "Ruby",
+        "Python",
+        "Java",
+        "SQL"
+      ]
+    },
+    {
+      "name": "Backend Frameworks & Libraries",
+      "keywords": [
+        "Ruby on Rails (RoR)",
+        "Node.js",
+        "RSpec",
+        "Google Guice"
+      ]
+    },
+    {
+      "name": "Frontend Frameworks & Libraries",
+      "keywords": [
+        "React",
+        "React Native"
+      ]
+    },
+    {
+      "name": "Databases",
+      "keywords": [
+        "MySQL",
+        "PostgreSQL",
+        "Google Cloud Spanner"
+      ]
+    },
+    {
+      "name": "APIs & Web Services",
+      "keywords": [
+        "REST APIs",
+        "RESTful Development",
+        "REST",
+        "Google API",
+        "GitHub API",
+        "OneRoster"
+      ]
+    },
+    {
+      "name": "Version Control & Collaboration",
+      "keywords": [
+        "Git",
+        "GitHub"
+      ]
+    },
+    {
+      "name": "Cloud Platforms & DevOps",
+      "keywords": [
+        "Amazon Web Services (AWS)",
+        "Google Cloud Platform (GCP)",
+        "Heroku"
+      ]
+    },
+    {
+      "name": "Mobile Development",
+      "keywords": [
+        "iOS",
+        "Android",
+        "React Native"
+      ]
+    },
+    {
+      "name": "Operating Systems & Tools",
+      "keywords": [
+        "MacOS",
+        "Linux",
+        "Vim Text Editor"
+      ]
+    },
+    {
+      "name": "Software Engineering & Architecture",
+      "keywords": [
+        "Web Development",
+        "Software Engineering",
+        "Systems Design",
+        "Engineering",
+        "Geolocation",
+        "Agile Software Development",
+        "Scrum",
+        "Algorithms",
+        "Data Structures",
+        "Mathematics"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Professional Working Proficiency"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Network of 30+ iOS/Android Apps",
+      "startDate": "2018-08",
+      "endDate": "2022-12",
+      "description": "I led a very small team tasked with maintaining and upgrading all the iOS/Android apps in the company's portfolio, as well as onboarding new apps for new clients. I redesigned and reimplemented the shared back end to support these apps as clients demanded new features. I also maintained and extended the original proprietary framework used to build apps from configuration files to support these new features.",
+      "highlights": [
+        "Led a team maintaining and upgrading 30+ iOS/Android apps in the portfolio",
+        "Redesigned and reimplemented the shared back end to support new client features",
+        "Maintained and extended proprietary framework for building apps from configuration files"
+      ],
+      "url": "https://apps.apple.com/mx/developer/row27-mobile/id330236857?l=en#see-all/i-phone-apps"
+    },
+    {
+      "name": "Neighborhood Scout",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "description": "This is a real estate network with information on all the neighborhoods in the US. I worked as part of the team that migrated the back-end codebase from PHP to Ruby on Rails 3.0. Once the migration was complete, I served as the main programmer involved in the implementation of a multi-layer search engine designed to find neighborhoods with a similar lifestyle but in different locations across the USA.",
+      "highlights": [
+        "Migrated back-end codebase from PHP to Ruby on Rails 3.0",
+        "Implemented multi-layer search engine for finding neighborhoods with similar lifestyle in different locations"
+      ],
+      "url": "http://www.neighborhoodscout.com/"
+    },
+    {
+      "name": "Allocate",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "description": "This is a human resource management tool with a beautiful and simple design. I used Backbone and Marionette (a front-end framework) to build the user interface for this project. Since this was a home project for the company I was working for at the time, I worked alongside and communicated with a large number of developers.",
+      "highlights": [
+        "Built user interface using Backbone and Marionette front-end framework",
+        "Collaborated with a large number of developers on an internal company project"
+      ],
+      "url": "http://www.allocatehq.com/"
+    }
   ]
 }
