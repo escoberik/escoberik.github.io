@@ -1,0 +1,439 @@
+<!doctype html>
+    <html lang="en" style="">
+      <head>
+        <meta charset="utf-8" />
+        
+    <title>Erik Escobedo</title>
+    <meta name="description" content="I'm a hands-on software architect and full-stack engineer with 16+ years of experience, including 3 years at Google Classroom. I specialize in managing technical debt and transforming legacy complexity into maintainable architecture. I have more than a decade of remote-first experience, bridging the gap between business goals and technical execution, ensuring reliability and performance in every project I'm involved in." />
+  
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" />
+        <style>
+          :root{color-scheme:light dark;--color-background-light: #ffffff;--color-dimmed-light: #f3f4f5;--color-primary-light: #191e23;--color-secondary-light: #6c7781;--color-accent-light: #0073aa;--color-background-dark: #191e23;--color-dimmed-dark: #23282d;--color-primary-dark: #fbfbfc;--color-secondary-dark: #ccd0d4;--color-accent-dark: #00a0d2;--color-background: var(--color-background-light);--color-dimmed: var(--color-dimmed-light);--color-primary: var(--color-primary-light);--color-secondary: var(--color-secondary-light);--color-accent: var(--color-accent-light);--scale-ratio: 1.25;--scale0: 1rem;--scale1: calc(var(--scale0) * var(--scale-ratio));--scale2: calc(var(--scale1) * var(--scale-ratio));--scale3: calc(var(--scale2) * var(--scale-ratio));--scale4: calc(var(--scale3) * var(--scale-ratio));--scale5: calc(var(--scale4) * var(--scale-ratio))}@media (prefers-color-scheme: dark){:root{--color-background: var(--color-background-dark);--color-dimmed: var(--color-dimmed-dark);--color-primary: var(--color-primary-dark);--color-secondary: var(--color-secondary-dark);--color-accent: var(--color-accent-dark)}}*{box-sizing:border-box;margin:0;padding:0}html{font-size:14px}body{background:var(--color-background);color:var(--color-primary);display:grid;font:1em/1.5 Lato,sans-serif;gap:2em;grid-template-columns:[full-start] 1fr [main-start side-start] minmax(min-content,12em) [side-end content-start] minmax(min-content,36em) [main-end content-end] 1fr [full-end];grid-template-rows:auto [content] 0;margin-bottom:4em}body:before{content:"";grid-column:full;grid-row:content}ol,ul{padding-left:1em}:not(.icon-list,.tag-list)>li+li{margin-top:.4em}li::marker,.network{color:var(--color-secondary)}a{color:var(--color-accent);text-decoration:none}a:focus,a:hover{text-decoration:underline}h1,h2,h3,h5{font-weight:400}h1,h2,h3{line-height:1.2}h1{font-size:var(--scale5)}h2{color:var(--color-secondary);font-size:var(--scale4)}h3{color:var(--color-secondary);font-size:var(--scale3);grid-column:side;margin-bottom:1rem}h4{font-size:var(--scale2)}h5{font-size:var(--scale1)}h6{font-size:var(--scale0)}blockquote{border-left:.2em solid var(--color-dimmed);padding-left:1em}cite{color:var(--color-secondary);font-style:inherit}cite:before{content:"— "}svg{margin-right:.2em;vertical-align:text-bottom}.masthead{background:var(--color-dimmed);display:inherit;gap:inherit;grid-column:full;grid-template-columns:inherit;padding:4em 0;text-align:center}.masthead>*,section{grid-column:main}.masthead>img{border:4px solid;border-radius:50%;margin:0 auto;max-width:12em}article>*+*,blockquote>*+*,.timeline>div>*+*{margin-top:.6em}.meta{color:var(--color-secondary)}.stack{display:grid;gap:1.5em}.icon-list{display:flex;flex-wrap:wrap;gap:.4em 1em;justify-content:center;list-style:none;padding:0}.grid-list{display:grid;gap:1em}.tag-list{display:flex;flex-wrap:wrap;gap:.4em;list-style:none;padding:0}.tag-list>li{background:var(--color-dimmed);border-radius:.2em;padding:.2em .6em}.timeline>div{position:relative}.timeline>div:not(:last-child){padding-bottom:1rem}.timeline>div:not(:last-child):before{content:"";position:absolute;top:1rem;left:-15px;width:2px;height:100%;background:var(--color-secondary)}.timeline>div:not(:only-child):after{content:"";position:absolute;top:.6rem;left:-20px;width:8px;height:8px;background:var(--color-secondary);border:2px solid var(--color-background);border-radius:50%}@media print,(min-width: 48em){h3{text-align:right;margin-bottom:inherit}.masthead{text-align:inherit}.masthead>*,section{grid-column:content}.masthead img{grid-column:side;grid-row:span 2;max-width:100%}section{display:contents}.icon-list{flex-direction:column}.grid-list{grid-template-columns:repeat(auto-fit,minmax(calc((100% - 1em)/2),1fr))}}time+time-duration:before{content:"· "}@media print{time-duration{display:none}}
+        </style>
+        <script type="module">
+          const pluralize = (num, str) => `${num} ${num === 1 ? str : str.concat('s')}`
+
+class TimeDuration extends HTMLElement {
+  connectedCallback() {
+    const durationAttr = +this.getAttribute('duration')
+    if (!durationAttr) return this.remove()
+
+    const diffDate = new Date(durationAttr)
+    const years = diffDate.getFullYear() - 1970
+    const months = diffDate.getMonth()
+    const days = diffDate.getDate() - 1
+
+    const segments = [
+      years && pluralize(years, 'yr'),
+      months && pluralize(months, 'mo'),
+      days && !years && !months && pluralize(days, 'day'),
+    ].filter(Boolean)
+    if (!segments.length) return
+
+    this.textContent = segments.join(' ')
+  }
+}
+
+customElements.define('time-duration', TimeDuration)
+
+        </script>
+      </head>
+      <body>
+        
+    <header class="masthead">
+      <img src="https://erik.escobedo.dev/resume.jpg" alt="" />
+      <div><h1>Erik Escobedo</h1> <h2>Software Engineer</h2></div>
+      <article><p>I'm a hands-on software architect and full-stack engineer with 16+ years of experience, including 3 years at Google Classroom. I specialize in managing technical debt and transforming legacy complexity into maintainable architecture. I have more than a decade of remote-first experience, bridging the gap between business goals and technical execution, ensuring reliability and performance in every project I'm involved in.</p></article>
+      <ul class="icon-list">
+        
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Hunucma, Mexico
+          </li>
+        
+        
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:erik@escobedo.dev">erik@escobedo.dev</a>
+          </li>
+        
+        
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="tel:+52(999)969-3090">+52 (999) 969-3090</a>
+          </li>
+        
+        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> <a href="https://erik.escobedo.dev">erik.escobedo.dev</a></li>
+        
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> <a href="https://github.com/escoberik">escoberik</a>
+              <span class="network">(Github)</span>
+            </li>
+          
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <a href="https://www.toptal.com/developers/resume/erik-escobedo">erik-escobedo</a>
+              <span class="network">(Toptal)</span>
+            </li>
+          
+      </ul>
+    </header>
+   
+      <section id="work">
+        <h3>Work</h3>
+        <div class="stack">
+          
+              <article>
+                <header>
+                  <h4><a href="https://edu.google.com">Google</a></h4>
+                  <div class="meta">
+                    
+                    
+                  </div>
+                </header>
+                <div class="timeline">
+                  
+                      <div>
+                        <div>
+                          <h5>Software Engineer</h5>
+                          <div class="meta">
+                            <div><time datetime="2023-01">Jan 2023</time> – <time datetime="2026-02">Feb 2026</time> <time-duration duration="97372800000"></time-duration></div>
+                            
+                          </div>
+                        </div>
+                        <p>Google Classroom is a learning management platform serving millions of users worldwide. I was involved in maintaining the Classroom API infrastructure, focusing on large-scale migrations and the strategic sunsetting of legacy systems.</p>
+                        
+                          <ul>
+                            <li><p>Designed and implemented the database migration for the Google Classroom API: Registrations service, using a Dark Launch approach to validate data for millions of users.</p></li><li><p>Architected a synthetic SIS sandbox to facilitate integration testing and AI agent crawling, fed by Google Spreadsheets as a flexible data source for two-way verification across OneRoster 1.1 and 1.2 protocols.</p></li><li><p>Mentored junior engineers on software engineering best practices, guiding them through complex system designs, Google’s rigorous code review standards, and career development paths.</p></li><li><p>Led the End-of-Life (EOL) process for a legacy platform, coordinating phased account closures and resolving critical data conflicts to ensure a smooth transition for clients before final decommissioning.</p></li><li><p>Co-architected a comprehensive test coverage suite for legacy pipelines using SQLT to ensure reliability during system integration of an acquired third party.</p></li>
+                          </ul>
+                        
+                      </div>
+                    
+                </div>
+              </article>
+            
+              <article>
+                <header>
+                  <h4><a href="https://www.fanmaker.com">FanMaker</a></h4>
+                  <div class="meta">
+                    
+                    
+                  </div>
+                </header>
+                <div class="timeline">
+                  
+                      <div>
+                        <div>
+                          <h5>Software Engineer</h5>
+                          <div class="meta">
+                            <div><time datetime="2018-08">Aug 2018</time> – <time datetime="2022-12">Dec 2022</time> <time-duration duration="136771200000"></time-duration></div>
+                            
+                          </div>
+                        </div>
+                        <p>FanMaker is a leading sports loyalty and fan engagement platform powering rewards programs for professional teams and universities. I was responsible for maintaining and scaling the infrastructure that powers a wide-range of end-user mobile applications.</p>
+                        
+                          <ul>
+                            <li><p>Maintained and extended a Ruby on Rails application providing back-end services for a network of 30+ mobile applications.</p></li><li><p>Single-handedly migrated the codebase from Ruby on Rails 2 to Ruby on Rails 3 on a secondary branch while maintaining and adding new features to it in parallel.</p></li><li><p>Architected and deployed legal compliance frameworks, enabling the acquisition of a new enterprise-tier client base.</p></li><li><p>Engineered a robust double-entry accounting engine for virtual currency, featuring point-in-time reporting capabilities to accurately reconstruct balances and audit logs for any historical or future date.</p></li><li><p>Independently managed a Rails 2 to 3 migration by engineering a compatibility layer that supported parallel development and stable feature releases throughout the upgrade process.</p></li><li><p>Scaled a high-availability AWS infrastructure to support 1+ million concurrent users, implementing predictive auto-scaling to eliminate manual intervention during peak live event traffic.</p></li>
+                          </ul>
+                        
+                      </div>
+                    
+                </div>
+              </article>
+            
+              <article>
+                <header>
+                  <h4>Freelance Work</h4>
+                  <div class="meta">
+                    
+                    
+                  </div>
+                </header>
+                <div class="timeline">
+                  
+                      <div>
+                        <div>
+                          <h5>Founder & Team Leader</h5>
+                          <div class="meta">
+                            <div><time datetime="2013-02">Feb 2013</time> – <time datetime="2018-08">Aug 2018</time> <time-duration duration="173404800000"></time-duration></div>
+                            
+                          </div>
+                        </div>
+                        <p>I founded and ran a small organization of local programmers that provided software developer services to international clients, mainly focused in the USA. I was responsible for end-to-end delivery, including technical architecture, project scoping, and talent orchestration.</p>
+                        
+                          <ul>
+                            <li><p>Led a freelancer guild group—composed of local programmers sharing an office space; sometimes working independently, sometimes working on the same projects.</p></li><li><p>Interviewed and met with leads and customers—helping them to design product strategies and software solutions.</p></li><li><p>Mentoring and empowering the most junior members of the group, as well as consulting on their projects.</p></li><li><p>Led shared projects and made technology decisions—like what platform to use, what libraries to implement, and what code styles to follow.</p></li><li><p>Designed a system and database for both shared and individual projects.</p></li>
+                          </ul>
+                        
+                      </div>
+                    
+                </div>
+              </article>
+            
+              <article>
+                <header>
+                  <h4><a href="https://www.simulationcurriculum.com/">Simulation Curriculum</a></h4>
+                  <div class="meta">
+                    
+                    
+                  </div>
+                </header>
+                <div class="timeline">
+                  
+                      <div>
+                        <div>
+                          <h5>Web Developer</h5>
+                          <div class="meta">
+                            <div><time datetime="2014-11">Nov 2014</time> – <time datetime="2016-02">Feb 2016</time> <time-duration duration="39484800000"></time-duration></div>
+                            
+                          </div>
+                        </div>
+                        <p>Simulation Curriculum is an industry leader in Earth &amp; Space Science software and curriculum solutions. I served as a recurring consultant, providing freelance web development services for a variety of strategic projects.</p>
+                        
+                          <ul>
+                            <li><p>Worked alongside David Whips (winner of the Apple Design Awards 2013).</p></li><li><p>Led a three-person team assembled by the client—delegating tasks and reporting directly to the client.</p></li><li><p>Implemented an independent AngularJS module by using a private API provided by the client.</p></li><li><p>Worked with vectors and geometry figures to allow students to draw, drag, split, and reassemble colorful geometric shapes.</p></li><li><p>Designed equations that allowed the user to add momentum when dragging movable panels.</p></li>
+                          </ul>
+                        
+                      </div>
+                    
+                </div>
+              </article>
+            
+              <article>
+                <header>
+                  <h4><a href="https://www.mojotech.com">MojoTech</a></h4>
+                  <div class="meta">
+                    
+                    
+                  </div>
+                </header>
+                <div class="timeline">
+                  
+                      <div>
+                        <div>
+                          <h5>Ruby on Rails Developer</h5>
+                          <div class="meta">
+                            <div><time datetime="2010-12">Dec 2010</time> – <time datetime="2013-02">Feb 2013</time> <time-duration duration="68515200000"></time-duration></div>
+                            
+                          </div>
+                        </div>
+                        <p>Mojotech is a premier software consultancy that partners with startups and enterprise clients to build mission-critical digital products. As a Ruby on Rails Developer, I contributed to various high-impact projects, collaborating in agile teams to deliver scalable and maintainable codebases.</p>
+                        
+                          <ul>
+                            <li><p>Worked alongside great people like Christopher Shoemaker, a former member of the Mozilla team.</p></li><li><p>Built a beautiful human resources management tool using the most advanced front-end technologies available at the time.</p></li><li><p>Contributed to a huge real estate application for which I designed a powerful neighborhood search engine.</p></li><li><p>Communicated remotely using tools like HipChat, Basecamp, and more for almost 3 years.</p></li><li><p>Migrated an existing application from PHP to Ruby on Rails 3.0.</p></li>
+                          </ul>
+                        
+                      </div>
+                    
+                </div>
+              </article>
+            
+        </div>
+      </section>
+      
+      <section id="education">
+        <h3>Education</h3>
+        <div class="stack">
+          
+              <article>
+                <header>
+                  <h4><a href="https://www.ingenieria.unam.mx/">Universidad Nacional Autónoma de México (UNAM)</a></h4>
+                  <div class="meta">
+                    <strong>Mechatronics Engineering</strong>
+                    <div><time datetime="2006">Jan 2006</time> – <time datetime="2010">Jan 2010</time> <time-duration duration="126230400000"></time-duration></div>
+                  </div>
+                </header>
+                <p>Bachelor's Degree (incomplete)</p>
+                
+              </article>
+            
+        </div>
+      </section>
+    
+        
+      <section id="projects">
+        <h3>Projects</h3>
+        <div class="stack">
+          
+              <article>
+                <header>
+                  <h4><a href="https://apps.apple.com/mx/developer/row27-mobile/id330236857?l=en#see-all/i-phone-apps">Network of 30+ iOS/Android Apps</a></h4>
+                  <div class="meta">
+                    <div>
+                      
+                      
+                    </div>
+                    <div><time datetime="2018-08">Aug 2018</time> – <time datetime="2022-12">Dec 2022</time> <time-duration duration="136771200000"></time-duration></div>
+                    
+                  </div>
+                </header>
+                <p>I led a very small team tasked with maintaining and upgrading all the iOS/Android apps in the company's portfolio, as well as onboarding new apps for new clients. I redesigned and reimplemented the shared back end to support these apps as clients demanded new features. I also maintained and extended the original proprietary framework used to build apps from configuration files to support these new features.</p>
+                
+                  <ul>
+                    <li><p>Led a team maintaining and upgrading 30+ iOS/Android apps in the portfolio</p></li><li><p>Redesigned and reimplemented the shared back end to support new client features</p></li><li><p>Maintained and extended proprietary framework for building apps from configuration files</p></li>
+                  </ul>
+                
+                
+              </article>
+            
+              <article>
+                <header>
+                  <h4><a href="http://www.neighborhoodscout.com/">Neighborhood Scout</a></h4>
+                  <div class="meta">
+                    <div>
+                      
+                      
+                    </div>
+                    <div><time datetime="2010-12">Dec 2010</time> – <time datetime="2013-02">Feb 2013</time> <time-duration duration="68515200000"></time-duration></div>
+                    
+                  </div>
+                </header>
+                <p>This is a real estate network with information on all the neighborhoods in the US. I worked as part of the team that migrated the back-end codebase from PHP to Ruby on Rails 3.0. Once the migration was complete, I served as the main programmer involved in the implementation of a multi-layer search engine designed to find neighborhoods with a similar lifestyle but in different locations across the USA.</p>
+                
+                  <ul>
+                    <li><p>Migrated back-end codebase from PHP to Ruby on Rails 3.0</p></li><li><p>Implemented multi-layer search engine for finding neighborhoods with similar lifestyle in different locations</p></li>
+                  </ul>
+                
+                
+              </article>
+            
+              <article>
+                <header>
+                  <h4><a href="http://www.allocatehq.com/">Allocate</a></h4>
+                  <div class="meta">
+                    <div>
+                      
+                      
+                    </div>
+                    <div><time datetime="2010-12">Dec 2010</time> – <time datetime="2013-02">Feb 2013</time> <time-duration duration="68515200000"></time-duration></div>
+                    
+                  </div>
+                </header>
+                <p>This is a human resource management tool with a beautiful and simple design. I used Backbone and Marionette (a front-end framework) to build the user interface for this project. Since this was a home project for the company I was working for at the time, I worked alongside and communicated with a large number of developers.</p>
+                
+                  <ul>
+                    <li><p>Built user interface using Backbone and Marionette front-end framework</p></li><li><p>Collaborated with a large number of developers on an internal company project</p></li>
+                  </ul>
+                
+                
+              </article>
+            
+        </div>
+      </section>
+      
+         
+      <section id="skills">
+        <h3>Skills</h3>
+        <div class="grid-list">
+          
+              <div>
+                <h4>Web Technologies</h4>
+                
+                  <ul class="tag-list">
+                    <li>HTML</li><li>JavaScript</li><li>CSS</li><li>TypeScript</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Programming Languages</h4>
+                
+                  <ul class="tag-list">
+                    <li>Ruby</li><li>Python</li><li>Java</li><li>SQL</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Backend Frameworks & Libraries</h4>
+                
+                  <ul class="tag-list">
+                    <li>Ruby on Rails (RoR)</li><li>Node.js</li><li>RSpec</li><li>Google Guice</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Frontend Frameworks & Libraries</h4>
+                
+                  <ul class="tag-list">
+                    <li>React</li><li>React Native</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Databases</h4>
+                
+                  <ul class="tag-list">
+                    <li>MySQL</li><li>PostgreSQL</li><li>Google Cloud Spanner</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>APIs & Web Services</h4>
+                
+                  <ul class="tag-list">
+                    <li>REST APIs</li><li>RESTful Development</li><li>REST</li><li>Google API</li><li>GitHub API</li><li>OneRoster</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Version Control & Collaboration</h4>
+                
+                  <ul class="tag-list">
+                    <li>Git</li><li>GitHub</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Cloud Platforms & DevOps</h4>
+                
+                  <ul class="tag-list">
+                    <li>Amazon Web Services (AWS)</li><li>Google Cloud Platform (GCP)</li><li>Heroku</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Mobile Development</h4>
+                
+                  <ul class="tag-list">
+                    <li>iOS</li><li>Android</li><li>React Native</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Operating Systems & Tools</h4>
+                
+                  <ul class="tag-list">
+                    <li>MacOS</li><li>Linux</li><li>Vim Text Editor</li>
+                  </ul>
+                
+              </div>
+            
+              <div>
+                <h4>Software Engineering & Architecture</h4>
+                
+                  <ul class="tag-list">
+                    <li>Web Development</li><li>Software Engineering</li><li>Systems Design</li><li>Engineering</li><li>Geolocation</li><li>Agile Software Development</li><li>Scrum</li><li>Algorithms</li><li>Data Structures</li><li>Mathematics</li>
+                  </ul>
+                
+              </div>
+            
+        </div>
+      </section>
+     
+      <section id="languages">
+        <h3>Languages</h3>
+        <div class="grid-list">
+          <div><h4>Spanish</h4> Native</div><div><h4>English</h4> Professional Working Proficiency</div>
+        </div>
+      </section>
+    
+         
+      </body>
+    </html>
