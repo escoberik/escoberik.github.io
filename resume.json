@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "theme": "even",
+    "lastModified": "2026-03-01"
+  },
   "basics": {
     "name": "Erik Escobedo",
     "label": "Software Engineer",
@@ -109,7 +113,7 @@
       "institution": "Universidad Nacional Autónoma de México (UNAM)",
       "url": "https://www.ingenieria.unam.mx/",
       "area": "Mechatronics Engineering",
-      "studyType": "Bachelor's Degree",
+      "studyType": "Bachelor's Degree (incomplete)",
       "startDate": "2006",
       "endDate": "2010"
     }
