@@ -1,77 +1,82 @@
 ---
-import Base from '../../../layouts/Base.astro'
-import { getCollection } from 'astro:content'
+import Base from "../../../layouts/Base.astro";
+import { getCollection } from "astro:content";
 
 export function getStaticPaths() {
-  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }]
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
 }
 
-const { lang } = Astro.params as { lang: 'en' | 'es' }
+const { lang } = Astro.params as { lang: "en" | "es" };
 
-const allPosts = await getCollection('blog')
+const allPosts = await getCollection("blog");
 const posts = allPosts
-  .filter(p => p.data.lang === lang)
+  .filter((p) => p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map(p => ({ ...p, slug: p.slug.replace(new RegExp(`-${lang}$`), '') }))
+  .map((p) => ({ ...p, slug: p.slug.replace(new RegExp(`-${lang}$`), "") }));
 
-const isEs = lang === 'es'
-const locale = isEs ? 'es-ES' : 'en-US'
-const altLang = isEs ? 'en' : 'es'
+const isEs = lang === "es";
+const locale = isEs ? "es-ES" : "en-US";
+const altLang = isEs ? "en" : "es";
 ---
 
 <Base
   title="Blog — Erik Escobedo"
   description={isEs
-    ? 'Notas sobre ingeniería de software, diseño de sistemas y lanzamientos de código abierto.'
-    : 'Writing about software engineering, systems design, algorithms, and open-source work.'}
+    ? "Notas sobre ingeniería de software, diseño de sistemas y lanzamientos de código abierto."
+    : "Writing about software engineering, systems design, algorithms, and open-source work."}
   lang={lang}
 >
   <div class="page">
     <header class="page-header">
       <div class="page-eyebrow-row">
-        <p class="page-eyebrow">{isEs ? 'Escritura' : 'Writing'}</p>
+        <p class="page-eyebrow">{isEs ? "Notas" : "Writing"}</p>
         <div class="lang-switch">
-          <a href={`/blog/${altLang}`} class={`lang-opt ${altLang}`}>{altLang.toUpperCase()}</a>
+          <a href={`/blog/${altLang}`} class={`lang-opt ${altLang}`}
+            >{altLang.toUpperCase()}</a
+          >
           <span class="lang-sep">·</span>
           <span class="lang-opt active">{lang.toUpperCase()}</span>
         </div>
       </div>
-      <h1 class="page-title">Blog</h1>
       <p class="page-subtitle">
-        {isEs
-          ? 'Notas sobre ingeniería de software, diseño de sistemas y el ocasional lanzamiento de código abierto.'
-          : 'Notes on software engineering, systems design, and the occasional open-source release.'}
+        {
+          isEs
+            ? "Notas sobre ingeniería de software, diseño de sistemas y el ocasional lanzamiento de código abierto."
+            : "Notes on software engineering, systems design, and the occasional open-source release."
+        }
       </p>
     </header>
 
     <ul class="post-list">
-      {posts.map(post => (
-        <li>
-          <a href={`/blog/${post.slug}/${lang}`} class="post-card">
-            <div class="post-card-body">
-              <h2 class="post-card-title">{post.data.title}</h2>
-              <p class="post-card-desc">{post.data.description}</p>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="post-card-tags">
-                  {post.data.tags.map((tag: string) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div class="post-card-meta">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString(locale, {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
-              </time>
-              <span class="post-card-arrow">→</span>
-            </div>
-          </a>
-        </li>
-      ))}
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}/${lang}`} class="post-card">
+              <div class="post-card-body">
+                <h2 class="post-card-title">{post.data.title}</h2>
+                <p class="post-card-desc">{post.data.description}</p>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="post-card-tags">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div class="post-card-meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString(locale, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </time>
+                <span class="post-card-arrow">→</span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </Base>
@@ -111,15 +116,25 @@ const altLang = isEs ? 'en' : 'es'
     font-size: 0.7rem;
     letter-spacing: 0.08em;
   }
-  .lang-opt { color: var(--text-3); }
-  .lang-opt.active { color: var(--text); font-weight: 600; }
-  .lang-opt a, a.lang-opt {
+  .lang-opt {
+    color: var(--text-3);
+  }
+  .lang-opt.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .lang-opt a,
+  a.lang-opt {
     color: var(--blue);
-    border-bottom: 1px solid rgba(79,133,244,0.3);
+    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
     transition: border-color 0.15s;
   }
-  a.lang-opt:hover { border-color: var(--blue); }
-  .lang-sep { color: var(--border); }
+  a.lang-opt:hover {
+    border-color: var(--blue);
+  }
+  .lang-sep {
+    color: var(--border);
+  }
 
   .page-title {
     font-family: var(--font-serif);
@@ -155,12 +170,21 @@ const altLang = isEs ? 'en' : 'es'
     border-bottom: 1px solid var(--border);
     transition: all 0.2s;
   }
-  .post-card:first-of-type { border-top: 1px solid var(--border); }
+  .post-card:first-of-type {
+    border-top: 1px solid var(--border);
+  }
 
-  .post-card:hover .post-card-title { color: var(--blue); }
-  .post-card:hover .post-card-arrow { color: var(--blue); transform: translateX(4px); }
+  .post-card:hover .post-card-title {
+    color: var(--blue);
+  }
+  .post-card:hover .post-card-arrow {
+    color: var(--blue);
+    transform: translateX(4px);
+  }
 
-  .post-card-body { flex: 1; }
+  .post-card-body {
+    flex: 1;
+  }
 
   .post-card-title {
     font-family: var(--font-serif);
@@ -215,13 +239,24 @@ const altLang = isEs ? 'en' : 'es'
   .post-card-arrow {
     font-size: 0.9rem;
     color: var(--text-3);
-    transition: color 0.15s, transform 0.15s;
+    transition:
+      color 0.15s,
+      transform 0.15s;
     display: inline-block;
   }
 
   @media (max-width: 640px) {
-    .page { padding: 3rem 1.5rem 6rem; }
-    .post-card { flex-direction: column; gap: 0.75rem; }
-    .post-card-meta { flex-direction: row; align-items: center; justify-content: space-between; }
+    .page {
+      padding: 3rem 1.5rem 6rem;
+    }
+    .post-card {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .post-card-meta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 </style>
