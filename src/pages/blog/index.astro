@@ -1,12 +1,15 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
+import { transformSlug, getLocaleFromLang } from "../../utils/i18n";
 
+const lang = "en";
+const locale = getLocaleFromLang(lang);
 const allPosts = await getCollection("blog");
 const posts = allPosts
-  .filter((p) => p.data.lang === "en")
+  .filter((p) => !p.data.draft && p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((p) => ({ ...p, slug: p.slug.replace(/-en$/, "") }));
+  .map((p) => ({ ...p, slug: transformSlug(p.slug) }));
 ---
 
 <Base
@@ -27,7 +30,7 @@ const posts = allPosts
       {
         posts.map((post) => (
           <li>
-            <a href={`/en/blog/${post.slug}`} class="post-card">
+            <a href={`/blog/${post.slug}`} class="post-card">
               <div class="post-card-body">
                 <h2 class="post-card-title">{post.data.title}</h2>
                 <p class="post-card-desc">{post.data.description}</p>
@@ -41,7 +44,7 @@ const posts = allPosts
               </div>
               <div class="post-card-meta">
                 <time datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString("en-US", {
+                  {post.data.pubDate.toLocaleDateString(locale, {
                     year: "numeric",
                     month: "short",
                     day: "numeric",

@@ -1,15 +1,16 @@
 ---
 import Base from '../layouts/Base.astro'
 import { getCollection } from 'astro:content'
+import { transformSlug, getLocaleFromLang } from '../utils/i18n'
 
 const lang = 'en'
-const locale = 'en-US'
+const locale = getLocaleFromLang(lang)
 
 const posts = (await getCollection('blog'))
-  .filter(p => p.data.lang === lang)
+  .filter(p => !p.data.draft && p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
-  .map(p => ({ ...p, slug: p.slug.replace(/-en$/, '') }))
+  .map(p => ({ ...p, slug: transformSlug(p.slug) }))
 ---
 
 <Base
@@ -108,7 +109,7 @@ const posts = (await getCollection('blog'))
   <section class="section">
     <div class="section-inner">
       <h2 class="section-label">Open Source</h2>
-      <a href="/en/blog/rbtree-visualizer" class="project-card">
+      <a href="/blog/rbtree-visualizer" class="project-card">
         <div class="project-card-header">
           <div class="project-name">rbtrees</div>
           <div class="project-npm">npm ↗</div>
@@ -139,7 +140,7 @@ const posts = (await getCollection('blog'))
         <ul class="post-list">
           {posts.map(post => (
             <li>
-              <a href={`/en/blog/${post.slug}`} class="post-row">
+              <a href={`/blog/${post.slug}`} class="post-row">
                 <span class="post-row-title">{post.data.title}</span>
                 <time class="post-row-date" datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' })}

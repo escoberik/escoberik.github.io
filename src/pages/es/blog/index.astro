@@ -1,42 +1,28 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import { getCollection } from "astro:content";
+import { transformSlug, getLocaleFromLang } from "../../../utils/i18n";
 
-export function getStaticPaths() {
-  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
-}
+const lang = "es";
+const locale = getLocaleFromLang(lang);
 
-const { lang } = Astro.params as { lang: "en" | "es" };
-
-if (lang === "en") return Astro.redirect("/blog", 301);
-
-const isEs = true;
-const locale = "es-ES";
-
-const allPosts = await getCollection("blog");
-const posts = allPosts
-  .filter((p) => p.data.lang === lang)
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft && p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((p) => ({ ...p, slug: p.slug.replace(/-es$/, "") }));
+  .map((p) => ({ ...p, slug: transformSlug(p.slug) }));
 ---
 
 <Base
   title="Blog — Erik Escobedo"
-  description={isEs
-    ? "Notas sobre ingeniería de software, diseño de sistemas y lanzamientos de código abierto."
-    : "Writing about software engineering, systems design, algorithms, and open-source work."}
-  lang={lang}
+  description="Notas sobre ingeniería de software, diseño de sistemas y lanzamientos de código abierto."
+  lang="es"
   altLangUrl="/blog"
 >
   <div class="page">
     <header class="page-header">
-      <p class="page-eyebrow">{isEs ? "Notas" : "Writing"}</p>
+      <p class="page-eyebrow">Notas</p>
       <p class="page-subtitle">
-        {
-          isEs
-            ? "Notas sobre ingeniería de software, diseño de sistemas y el ocasional lanzamiento de código abierto."
-            : "Notes on software engineering, systems design, and the occasional open-source release."
-        }
+        Notas sobre ingeniería de software, diseño de sistemas y el ocasional lanzamiento de código abierto.
       </p>
     </header>
 
@@ -44,7 +30,7 @@ const posts = allPosts
       {
         posts.map((post) => (
           <li>
-            <a href={`/${lang}/blog/${post.slug}`} class="post-card">
+            <a href={`/es/blog/${post.slug}`} class="post-card">
               <div class="post-card-body">
                 <h2 class="post-card-title">{post.data.title}</h2>
                 <p class="post-card-desc">{post.data.description}</p>

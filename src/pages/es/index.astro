@@ -1,28 +1,21 @@
 ---
 import Base from '../../layouts/Base.astro'
 import { getCollection } from 'astro:content'
+import { transformSlug, getLocaleFromLang } from '../../utils/i18n'
 
-export function getStaticPaths() {
-  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }]
-}
-
-const { lang } = Astro.params as { lang: 'en' | 'es' }
-
-if (lang === 'en') return Astro.redirect('/', 301)
-
-const isEs = true
-const locale = 'es-ES'
+const lang = 'es'
+const locale = getLocaleFromLang(lang)
 
 const posts = (await getCollection('blog'))
-  .filter(p => p.data.lang === lang)
+  .filter(p => !p.data.draft && p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
-  .map(p => ({ ...p, slug: p.slug.replace(/-es$/, '') }))
+  .map(p => ({ ...p, slug: transformSlug(p.slug) }))
 ---
 
 <Base
-  title="Erik Escobedo — Software Engineer"
-  lang={lang}
+  title="Erik Escobedo — Ingeniero de Software"
+  lang="es"
   altLangUrl="/"
 >
   <!-- Hero -->
@@ -30,38 +23,26 @@ const posts = (await getCollection('blog'))
     <div class="hero-inner">
       <div class="hero-eyebrow">
         <span class="dot dot-blue"></span>
-        <span>{isEs ? 'Disponible para nuevas oportunidades' : 'Available for new opportunities'}</span>
+        <span>Disponible para nuevas oportunidades</span>
       </div>
       <h1 class="hero-name">
         <span class="hn-erik"><span style="color:var(--blue)">E</span><span style="color:var(--red)">r</span><span style="color:var(--yellow)">i</span><span style="color:var(--green)">k</span></span>
         <span class="hn-escobedo">Escobedo</span>
       </h1>
-      <p class="hero-title">{isEs ? 'Ingeniero de Software' : 'Software Engineer'}</p>
+      <p class="hero-title">Ingeniero de Software</p>
       <p class="hero-bio">
-        {isEs ? (
-          <>
-            Más de 16 años construyendo sistemas a escala. Tres años en{' '}
-            <span class="g-google">
-              <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
-            </span>{' '}
-            Classroom, donde lideré migraciones de API para millones de usuarios y retiré plataformas heredadas sin interrupciones. Me especializo en desenredar la complejidad y hacerla desaparecer.
-          </>
-        ) : (
-          <>
-            16+ years building systems at scale. Three years at{' '}
-            <span class="g-google">
-              <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
-            </span>{' '}
-            Classroom, where I led API migrations for millions of users and sunset legacy platforms without breaking a thing. I specialize in untangling complexity and making it disappear.
-          </>
-        )}
+        Más de 16 años construyendo sistemas a escala. Tres años en{' '}
+        <span class="g-google">
+          <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
+        </span>{' '}
+        Classroom, donde lideré migraciones de API para millones de usuarios y retiré plataformas heredadas sin interrupciones. Me especializo en desenredar la complejidad y hacerla desaparecer.
       </p>
       <div class="hero-actions">
         <a href="/resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">
-          {isEs ? 'Currículum' : 'Resume'} <span class="btn-arrow">↗</span>
+          Currículum <span class="btn-arrow">↗</span>
         </a>
-        <a href={`/${lang}/blog`} class="btn btn-ghost">{isEs ? 'Ver el blog' : 'Read the blog'}</a>
-        <a href="mailto:erik@escobedo.dev" class="btn btn-ghost">{isEs ? 'Contacto' : 'Contact'}</a>
+        <a href="/es/blog" class="btn btn-ghost">Ver el blog</a>
+        <a href="mailto:erik@escobedo.dev" class="btn btn-ghost">Contacto</a>
       </div>
     </div>
     <div class="hero-decoration" aria-hidden="true">
@@ -72,7 +53,7 @@ const posts = (await getCollection('blog'))
   <!-- Experience timeline -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-label">{isEs ? 'Experiencia' : 'Experience'}</h2>
+      <h2 class="section-label">Experiencia</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="tl-left">
@@ -83,9 +64,9 @@ const posts = (await getCollection('blog'))
             <span class="tl-company">Google</span>
             <span class="tl-role">Software Engineer · Google Classroom</span>
             <p class="tl-desc">
-              {isEs
-                ? 'Diseñé migraciones de base de datos para millones de usuarios con Dark Launch. Arquitecté un sandbox SIS sintético para pruebas de integración de agentes de IA. Lideré el proceso EOL de una plataforma heredada. Co-escribí una suite de pruebas SQLT integral.'
-                : 'Designed database migrations for millions of users using Dark Launch. Architected a synthetic SIS sandbox for AI agent integration testing. Led EOL process for a legacy platform. Co-wrote a comprehensive SQLT test suite.'}
+              Diseñé migraciones de base de datos para millones de usuarios con Dark Launch.
+              Arquitecté un sandbox SIS sintético para pruebas de integración de agentes de IA.
+              Lideré el proceso EOL de una plataforma heredada. Co-escribí una suite de pruebas SQLT integral.
             </p>
           </div>
         </div>
@@ -99,9 +80,9 @@ const posts = (await getCollection('blog'))
             <span class="tl-company">FanMaker</span>
             <span class="tl-role">Software Engineer</span>
             <p class="tl-desc">
-              {isEs
-                ? 'Mantuve más de 30 apps iOS/Android sobre un backend Rails compartido. Escalé infraestructura AWS a más de 1M usuarios simultáneos con auto-scaling predictivo. Desarrollé un motor de contabilidad de partida doble para moneda virtual.'
-                : 'Maintained 30+ iOS/Android apps on a shared Rails back end. Scaled AWS infrastructure to 1M+ concurrent users with predictive auto-scaling. Engineered a double-entry accounting engine for virtual currency.'}
+              Mantuve más de 30 apps iOS/Android sobre un backend Rails compartido.
+              Escalé infraestructura AWS a más de 1M usuarios simultáneos con auto-scaling predictivo.
+              Desarrollé un motor de contabilidad de partida doble para moneda virtual.
             </p>
           </div>
         </div>
@@ -113,11 +94,10 @@ const posts = (await getCollection('blog'))
           </div>
           <div class="tl-right">
             <span class="tl-company">Freelance</span>
-            <span class="tl-role">{isEs ? 'Fundador y Líder de Equipo' : 'Founder & Team Leader'}</span>
+            <span class="tl-role">Fundador y Líder de Equipo</span>
             <p class="tl-desc">
-              {isEs
-                ? 'Fundé un equipo de ingenieros locales trabajando con clientes de EEUU. Responsable de arquitectura, alcance y mentoría.'
-                : 'Founded a team of local engineers delivering for US clients. Responsible for architecture, scoping, and mentoring.'}
+              Fundé un equipo de ingenieros locales trabajando con clientes de EEUU.
+              Responsable de arquitectura, alcance y mentoría.
             </p>
           </div>
         </div>
@@ -128,16 +108,16 @@ const posts = (await getCollection('blog'))
   <!-- Featured project -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-label">{isEs ? 'Código Abierto' : 'Open Source'}</h2>
-      <a href={`/${lang}/blog/rbtree-visualizer`} class="project-card">
+      <h2 class="section-label">Código Abierto</h2>
+      <a href="/es/blog/rbtree-visualizer" class="project-card">
         <div class="project-card-header">
           <div class="project-name">rbtrees</div>
           <div class="project-npm">npm ↗</div>
         </div>
         <p class="project-desc">
-          {isEs
-            ? 'Un visualizador interactivo de Árboles Rojo-Negro construido en React. Inserta, busca o elimina un valor y recorre cada comparación, rotación y recoloración del algoritmo, cuadro a cuadro.'
-            : 'An interactive step-by-step Red-Black Tree visualizer built in React. Insert, search, or delete a value — then walk through every comparison, rotation, and recolor the algorithm performs, one frame at a time.'}
+          Un visualizador interactivo de Árboles Rojo-Negro construido en React.
+          Inserta, busca o elimina un valor y recorre cada comparación, rotación y recoloración
+          del algoritmo, cuadro a cuadro.
         </p>
         <div class="project-tags">
           <span class="ptag">React</span>
@@ -146,7 +126,7 @@ const posts = (await getCollection('blog'))
           <span class="ptag">Algorithms</span>
         </div>
         <div class="project-footer">
-          <span class="project-read">{isEs ? 'Leer el post →' : 'Read the post →'}</span>
+          <span class="project-read">Leer el post →</span>
         </div>
       </a>
     </div>
@@ -156,11 +136,11 @@ const posts = (await getCollection('blog'))
   {posts.length > 0 && (
     <section class="section">
       <div class="section-inner">
-        <h2 class="section-label">{isEs ? 'Notas' : 'Writing'}</h2>
+        <h2 class="section-label">Notas</h2>
         <ul class="post-list">
           {posts.map(post => (
             <li>
-              <a href={`/${lang}/blog/${post.slug}`} class="post-row">
+              <a href={`/es/blog/${post.slug}`} class="post-row">
                 <span class="post-row-title">{post.data.title}</span>
                 <time class="post-row-date" datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' })}
@@ -169,7 +149,7 @@ const posts = (await getCollection('blog'))
             </li>
           ))}
         </ul>
-        <a href={`/${lang}/blog`} class="see-all">{isEs ? 'Ver todas →' : 'All posts →'}</a>
+        <a href="/es/blog" class="see-all">Ver todas →</a>
       </div>
     </section>
   )}
