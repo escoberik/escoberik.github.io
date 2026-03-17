@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro'
+import TreeVisualizerWrapper from '../components/TreeVisualizerWrapper'
+---
+
+<Base
+  title="Red-Black Tree Visualizer — Erik Escobedo"
+  description="Step through every comparison, rotation, and recolor of a Red-Black Tree — one frame at a time."
+>
+  <div class="viz-page">
+    <header class="viz-header">
+      <div class="viz-meta">
+        <a href="/blog/rbtree-visualizer" class="viz-back">← Blog post</a>
+        <span class="viz-tag">interactive</span>
+      </div>
+      <h1 class="viz-title">Red-Black Tree Visualizer</h1>
+      <p class="viz-description">
+        Insert, search, or delete a value and step through every comparison,
+        rotation, and recolor the algorithm performs — one frame at a time.
+      </p>
+    </header>
+
+    <div class="viz-embed">
+      <TreeVisualizerWrapper client:load />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .viz-page {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .viz-header {
+    max-width: var(--prose-w);
+    margin: 0 auto 3rem;
+  }
+
+  .viz-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+  }
+
+  .viz-back {
+    color: var(--text-3);
+    transition: color 0.15s;
+  }
+  .viz-back:hover { color: var(--text-2); }
+
+  .viz-tag {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    color: var(--text-2);
+    font-size: 0.75rem;
+  }
+
+  .viz-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .viz-description {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.6;
+    border-left: 2px solid var(--blue);
+    padding-left: 1rem;
+  }
+
+  .viz-embed {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding: 2rem;
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .viz-embed > :global(*) {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+</style>

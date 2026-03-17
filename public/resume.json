@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "theme": "even",
+    "lastModified": "2026-03-01"
+  },
+  "basics": {
+    "name": "Erik Escobedo",
+    "label": "Software Engineer",
+    "image": "https://erik.escobedo.dev/resume.jpg",
+    "email": "erik@escobedo.dev",
+    "phone": "+52 (999) 969-3090",
+    "url": "https://erik.escobedo.dev",
+    "summary": "I'm a hands-on software architect and full-stack engineer with 16+ years of experience, including 3 years at Google Classroom. I specialize in managing technical debt and transforming legacy complexity into maintainable architecture. I have more than a decade of remote-first experience, bridging the gap between business goals and technical execution, ensuring reliability and performance in every project I'm involved in.",
+    "location": {
+      "address": "103A Calle 13 San Juan II",
+      "postalCode": "97350",
+      "city": "Hunucma",
+      "countryCode": "MX",
+      "region": "Yucatan"
+    },
+    "profiles": [
+      {
+        "network": "Github",
+        "username": "escoberik",
+        "url": "https://github.com/escoberik"
+      },
+      {
+        "network": "Toptal",
+        "username": "erik-escobedo",
+        "url": "https://www.toptal.com/developers/resume/erik-escobedo"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Google",
+      "position": "Software Engineer",
+      "url": "https://edu.google.com",
+      "startDate": "2023-01",
+      "endDate": "2026-02",
+      "summary": "Google Classroom is a learning management platform serving millions of users worldwide. I was involved in maintaining the Classroom API infrastructure, focusing on large-scale migrations and the strategic sunsetting of legacy systems.",
+      "highlights": [
+        "Designed and implemented the database migration for the Google Classroom API: Registrations service, using a Dark Launch approach to validate data for millions of users.",
+        "Architected a synthetic SIS sandbox to facilitate integration testing and AI agent crawling, fed by Google Spreadsheets as a flexible data source for two-way verification across OneRoster 1.1 and 1.2 protocols.",
+        "Mentored junior engineers on software engineering best practices, guiding them through complex system designs, Google’s rigorous code review standards, and career development paths.",
+        "Led the End-of-Life (EOL) process for a legacy platform, coordinating phased account closures and resolving critical data conflicts to ensure a smooth transition for clients before final decommissioning.",
+        "Co-architected a comprehensive test coverage suite for legacy pipelines using SQLT to ensure reliability during system integration of an acquired third party."
+      ]
+    },
+    {
+      "name": "FanMaker",
+      "position": "Software Engineer",
+      "url": "https://www.fanmaker.com",
+      "startDate": "2018-08",
+      "endDate": "2022-12",
+      "summary": "FanMaker is a leading sports loyalty and fan engagement platform powering rewards programs for professional teams and universities. I was responsible for maintaining and scaling the infrastructure that powers a wide-range of end-user mobile applications.",
+      "highlights": [
+        "Maintained and extended a Ruby on Rails application providing back-end services for a network of 30+ mobile applications.",
+        "Single-handedly migrated the codebase from Ruby on Rails 2 to Ruby on Rails 3 on a secondary branch while maintaining and adding new features to it in parallel.",
+        "Architected and deployed legal compliance frameworks, enabling the acquisition of a new enterprise-tier client base.",
+        "Engineered a robust double-entry accounting engine for virtual currency, featuring point-in-time reporting capabilities to accurately reconstruct balances and audit logs for any historical or future date.",
+        "Independently managed a Rails 2 to 3 migration by engineering a compatibility layer that supported parallel development and stable feature releases throughout the upgrade process.",
+        "Scaled a high-availability AWS infrastructure to support 1+ million concurrent users, implementing predictive auto-scaling to eliminate manual intervention during peak live event traffic."
+      ]
+    },
+    {
+      "name": "Freelance Work",
+      "position": "Founder & Team Leader",
+      "startDate": "2013-02",
+      "endDate": "2018-08",
+      "summary": "I founded and ran a small organization of local programmers that provided software developer services to international clients, mainly focused in the USA. I was responsible for end-to-end delivery, including technical architecture, project scoping, and talent orchestration.",
+      "highlights": [
+        "Led a freelancer guild group—composed of local programmers sharing an office space; sometimes working independently, sometimes working on the same projects.",
+        "Interviewed and met with leads and customers—helping them to design product strategies and software solutions.",
+        "Mentoring and empowering the most junior members of the group, as well as consulting on their projects.",
+        "Led shared projects and made technology decisions—like what platform to use, what libraries to implement, and what code styles to follow.",
+        "Designed a system and database for both shared and individual projects."
+      ]
+    },
+    {
+      "name": "Simulation Curriculum",
+      "position": "Web Developer",
+      "url": "https://www.simulationcurriculum.com/",
+      "startDate": "2014-11",
+      "endDate": "2016-02",
+      "summary": "Simulation Curriculum is an industry leader in Earth & Space Science software and curriculum solutions. I served as a recurring consultant, providing freelance web development services for a variety of strategic projects.",
+      "highlights": [
+        "Worked alongside David Whips (winner of the Apple Design Awards 2013).",
+        "Led a three-person team assembled by the client—delegating tasks and reporting directly to the client.",
+        "Implemented an independent AngularJS module by using a private API provided by the client.",
+        "Worked with vectors and geometry figures to allow students to draw, drag, split, and reassemble colorful geometric shapes.",
+        "Designed equations that allowed the user to add momentum when dragging movable panels."
+      ]
+    },
+    {
+      "name": "MojoTech",
+      "position": "Ruby on Rails Developer",
+      "url": "https://www.mojotech.com",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "summary": "Mojotech is a premier software consultancy that partners with startups and enterprise clients to build mission-critical digital products. As a Ruby on Rails Developer, I contributed to various high-impact projects, collaborating in agile teams to deliver scalable and maintainable codebases.",
+      "highlights": [
+        "Worked alongside great people like Christopher Shoemaker, a former member of the Mozilla team.",
+        "Built a beautiful human resources management tool using the most advanced front-end technologies available at the time.",
+        "Contributed to a huge real estate application for which I designed a powerful neighborhood search engine.",
+        "Communicated remotely using tools like HipChat, Basecamp, and more for almost 3 years.",
+        "Migrated an existing application from PHP to Ruby on Rails 3.0."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidad Nacional Autónoma de México (UNAM)",
+      "url": "https://www.ingenieria.unam.mx/",
+      "area": "Mechatronics Engineering",
+      "studyType": "Bachelor's Degree (incomplete)",
+      "startDate": "2006",
+      "endDate": "2010"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Technologies",
+      "keywords": [
+        "HTML",
+        "JavaScript",
+        "CSS",
+        "TypeScript"
+      ]
+    },
+    {
+      "name": "Programming Languages",
+      "keywords": [
+        "Ruby",
+        "Python",
+        "Java",
+        "SQL"
+      ]
+    },
+    {
+      "name": "Backend Frameworks & Libraries",
+      "keywords": [
+        "Ruby on Rails (RoR)",
+        "Node.js",
+        "RSpec",
+        "Google Guice"
+      ]
+    },
+    {
+      "name": "Frontend Frameworks & Libraries",
+      "keywords": [
+        "React",
+        "React Native"
+      ]
+    },
+    {
+      "name": "Databases",
+      "keywords": [
+        "MySQL",
+        "PostgreSQL",
+        "Google Cloud Spanner"
+      ]
+    },
+    {
+      "name": "APIs & Web Services",
+      "keywords": [
+        "REST APIs",
+        "RESTful Development",
+        "REST",
+        "Google API",
+        "GitHub API",
+        "OneRoster"
+      ]
+    },
+    {
+      "name": "Version Control & Collaboration",
+      "keywords": [
+        "Git",
+        "GitHub"
+      ]
+    },
+    {
+      "name": "Cloud Platforms & DevOps",
+      "keywords": [
+        "Amazon Web Services (AWS)",
+        "Google Cloud Platform (GCP)",
+        "Heroku"
+      ]
+    },
+    {
+      "name": "Mobile Development",
+      "keywords": [
+        "iOS",
+        "Android",
+        "React Native"
+      ]
+    },
+    {
+      "name": "Operating Systems & Tools",
+      "keywords": [
+        "MacOS",
+        "Linux",
+        "Vim Text Editor"
+      ]
+    },
+    {
+      "name": "Software Engineering & Architecture",
+      "keywords": [
+        "Web Development",
+        "Software Engineering",
+        "Systems Design",
+        "Engineering",
+        "Geolocation",
+        "Agile Software Development",
+        "Scrum",
+        "Algorithms",
+        "Data Structures",
+        "Mathematics"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Professional Working Proficiency"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Network of 30+ iOS/Android Apps",
+      "startDate": "2018-08",
+      "endDate": "2022-12",
+      "description": "I led a very small team tasked with maintaining and upgrading all the iOS/Android apps in the company's portfolio, as well as onboarding new apps for new clients. I redesigned and reimplemented the shared back end to support these apps as clients demanded new features. I also maintained and extended the original proprietary framework used to build apps from configuration files to support these new features.",
+      "highlights": [
+        "Led a team maintaining and upgrading 30+ iOS/Android apps in the portfolio",
+        "Redesigned and reimplemented the shared back end to support new client features",
+        "Maintained and extended proprietary framework for building apps from configuration files"
+      ],
+      "url": "https://apps.apple.com/mx/developer/row27-mobile/id330236857?l=en#see-all/i-phone-apps"
+    },
+    {
+      "name": "Neighborhood Scout",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "description": "This is a real estate network with information on all the neighborhoods in the US. I worked as part of the team that migrated the back-end codebase from PHP to Ruby on Rails 3.0. Once the migration was complete, I served as the main programmer involved in the implementation of a multi-layer search engine designed to find neighborhoods with a similar lifestyle but in different locations across the USA.",
+      "highlights": [
+        "Migrated back-end codebase from PHP to Ruby on Rails 3.0",
+        "Implemented multi-layer search engine for finding neighborhoods with similar lifestyle in different locations"
+      ],
+      "url": "http://www.neighborhoodscout.com/"
+    },
+    {
+      "name": "Allocate",
+      "startDate": "2010-12",
+      "endDate": "2013-02",
+      "description": "This is a human resource management tool with a beautiful and simple design. I used Backbone and Marionette (a front-end framework) to build the user interface for this project. Since this was a home project for the company I was working for at the time, I worked alongside and communicated with a large number of developers.",
+      "highlights": [
+        "Built user interface using Backbone and Marionette front-end framework",
+        "Collaborated with a large number of developers on an internal company project"
+      ],
+      "url": "http://www.allocatehq.com/"
+    }
+  ]
+}
