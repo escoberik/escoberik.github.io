@@ -7,5 +7,5 @@ export async function getStaticPaths() {
   return slugs.map(slug => ({ params: { slug } }))
 }
 
-return Astro.redirect(`/blog/${Astro.params.slug}/en`, 301)
+return Astro.redirect(`/en/blog/${Astro.params.slug}`, 301)
 ---

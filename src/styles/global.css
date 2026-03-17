@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
+  color-scheme: dark;
   --bg:        #080808;
   --bg-2:      #101010;
   --bg-3:      #181818;
@@ -17,6 +18,19 @@
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
   --max-w:     1100px;
   --prose-w:   680px;
+  --nav-bg:    rgba(8, 8, 8, 0.85);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg:        #f8f6f2;
+  --bg-2:      #f0ece6;
+  --bg-3:      #e8e2da;
+  --border:    rgba(0,0,0,0.09);
+  --text:      #1a1714;
+  --text-2:    #645e59;
+  --text-3:    #9e9690;
+  --nav-bg:    rgba(248, 246, 242, 0.9);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

@@ -1,46 +1,66 @@
 ---
-import Base from '../layouts/Base.astro'
+import Base from '../../layouts/Base.astro'
 import { getCollection } from 'astro:content'
 
-const lang = 'en'
-const locale = 'en-US'
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }]
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'es' }
+
+if (lang === 'en') return Astro.redirect('/', 301)
+
+const isEs = true
+const locale = 'es-ES'
 
 const posts = (await getCollection('blog'))
   .filter(p => p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
-  .map(p => ({ ...p, slug: p.slug.replace(/-en$/, '') }))
+  .map(p => ({ ...p, slug: p.slug.replace(/-es$/, '') }))
 ---
 
 <Base
   title="Erik Escobedo — Software Engineer"
-  lang="en"
-  altLangUrl="/es"
+  lang={lang}
+  altLangUrl="/"
 >
   <!-- Hero -->
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-eyebrow">
         <span class="dot dot-blue"></span>
-        <span>Available for new opportunities</span>
+        <span>{isEs ? 'Disponible para nuevas oportunidades' : 'Available for new opportunities'}</span>
       </div>
       <h1 class="hero-name">
         Erik<br /><em>Escobedo</em>
       </h1>
-      <p class="hero-title">Software Engineer</p>
+      <p class="hero-title">{isEs ? 'Ingeniero de Software' : 'Software Engineer'}</p>
       <p class="hero-bio">
-        16+ years building systems at scale. Three years at{' '}
-        <span class="g-google">
-          <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
-        </span>{' '}
-        Classroom, where I led API migrations for millions of users and sunset legacy platforms without breaking a thing. I specialize in untangling complexity and making it disappear.
+        {isEs ? (
+          <>
+            Más de 16 años construyendo sistemas a escala. Tres años en{' '}
+            <span class="g-google">
+              <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
+            </span>{' '}
+            Classroom, donde lideré migraciones de API para millones de usuarios y retiré plataformas heredadas sin interrupciones. Me especializo en desenredar la complejidad y hacerla desaparecer.
+          </>
+        ) : (
+          <>
+            16+ years building systems at scale. Three years at{' '}
+            <span class="g-google">
+              <span style="color:var(--blue)">G</span><span style="color:var(--red)">o</span><span style="color:var(--yellow)">o</span><span style="color:var(--blue)">g</span><span style="color:var(--green)">l</span><span style="color:var(--red)">e</span>
+            </span>{' '}
+            Classroom, where I led API migrations for millions of users and sunset legacy platforms without breaking a thing. I specialize in untangling complexity and making it disappear.
+          </>
+        )}
       </p>
       <div class="hero-actions">
         <a href="/resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">
-          Resume <span class="btn-arrow">↗</span>
+          {isEs ? 'Currículum' : 'Resume'} <span class="btn-arrow">↗</span>
         </a>
-        <a href="/blog" class="btn btn-ghost">Read the blog</a>
-        <a href="mailto:erik@escobedo.dev" class="btn btn-ghost">Contact</a>
+        <a href={`/${lang}/blog`} class="btn btn-ghost">{isEs ? 'Ver el blog' : 'Read the blog'}</a>
+        <a href="mailto:erik@escobedo.dev" class="btn btn-ghost">{isEs ? 'Contacto' : 'Contact'}</a>
       </div>
     </div>
     <div class="hero-decoration" aria-hidden="true">
@@ -51,7 +71,7 @@ const posts = (await getCollection('blog'))
   <!-- Experience timeline -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-label">Experience</h2>
+      <h2 class="section-label">{isEs ? 'Experiencia' : 'Experience'}</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="tl-left">
@@ -62,9 +82,9 @@ const posts = (await getCollection('blog'))
             <span class="tl-company">Google</span>
             <span class="tl-role">Software Engineer · Google Classroom</span>
             <p class="tl-desc">
-              Designed database migrations for millions of users using Dark Launch.
-              Architected a synthetic SIS sandbox for AI agent integration testing.
-              Led EOL process for a legacy platform. Co-wrote a comprehensive SQLT test suite.
+              {isEs
+                ? 'Diseñé migraciones de base de datos para millones de usuarios con Dark Launch. Arquitecté un sandbox SIS sintético para pruebas de integración de agentes de IA. Lideré el proceso EOL de una plataforma heredada. Co-escribí una suite de pruebas SQLT integral.'
+                : 'Designed database migrations for millions of users using Dark Launch. Architected a synthetic SIS sandbox for AI agent integration testing. Led EOL process for a legacy platform. Co-wrote a comprehensive SQLT test suite.'}
             </p>
           </div>
         </div>
@@ -78,9 +98,9 @@ const posts = (await getCollection('blog'))
             <span class="tl-company">FanMaker</span>
             <span class="tl-role">Software Engineer</span>
             <p class="tl-desc">
-              Maintained 30+ iOS/Android apps on a shared Rails back end.
-              Scaled AWS infrastructure to 1M+ concurrent users with predictive auto-scaling.
-              Engineered a double-entry accounting engine for virtual currency.
+              {isEs
+                ? 'Mantuve más de 30 apps iOS/Android sobre un backend Rails compartido. Escalé infraestructura AWS a más de 1M usuarios simultáneos con auto-scaling predictivo. Desarrollé un motor de contabilidad de partida doble para moneda virtual.'
+                : 'Maintained 30+ iOS/Android apps on a shared Rails back end. Scaled AWS infrastructure to 1M+ concurrent users with predictive auto-scaling. Engineered a double-entry accounting engine for virtual currency.'}
             </p>
           </div>
         </div>
@@ -92,10 +112,11 @@ const posts = (await getCollection('blog'))
           </div>
           <div class="tl-right">
             <span class="tl-company">Freelance</span>
-            <span class="tl-role">Founder & Team Leader</span>
+            <span class="tl-role">{isEs ? 'Fundador y Líder de Equipo' : 'Founder & Team Leader'}</span>
             <p class="tl-desc">
-              Founded a team of local engineers delivering for US clients.
-              Responsible for architecture, scoping, and mentoring.
+              {isEs
+                ? 'Fundé un equipo de ingenieros locales trabajando con clientes de EEUU. Responsable de arquitectura, alcance y mentoría.'
+                : 'Founded a team of local engineers delivering for US clients. Responsible for architecture, scoping, and mentoring.'}
             </p>
           </div>
         </div>
@@ -106,16 +127,16 @@ const posts = (await getCollection('blog'))
   <!-- Featured project -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-label">Open Source</h2>
-      <a href="/en/blog/rbtree-visualizer" class="project-card">
+      <h2 class="section-label">{isEs ? 'Código Abierto' : 'Open Source'}</h2>
+      <a href={`/${lang}/blog/rbtree-visualizer`} class="project-card">
         <div class="project-card-header">
           <div class="project-name">rbtrees</div>
           <div class="project-npm">npm ↗</div>
         </div>
         <p class="project-desc">
-          An interactive step-by-step Red-Black Tree visualizer built in React.
-          Insert, search, or delete a value — then walk through every comparison,
-          rotation, and recolor the algorithm performs, one frame at a time.
+          {isEs
+            ? 'Un visualizador interactivo de Árboles Rojo-Negro construido en React. Inserta, busca o elimina un valor y recorre cada comparación, rotación y recoloración del algoritmo, cuadro a cuadro.'
+            : 'An interactive step-by-step Red-Black Tree visualizer built in React. Insert, search, or delete a value — then walk through every comparison, rotation, and recolor the algorithm performs, one frame at a time.'}
         </p>
         <div class="project-tags">
           <span class="ptag">React</span>
@@ -124,7 +145,7 @@ const posts = (await getCollection('blog'))
           <span class="ptag">Algorithms</span>
         </div>
         <div class="project-footer">
-          <span class="project-read">Read the post →</span>
+          <span class="project-read">{isEs ? 'Leer el post →' : 'Read the post →'}</span>
         </div>
       </a>
     </div>
@@ -134,11 +155,11 @@ const posts = (await getCollection('blog'))
   {posts.length > 0 && (
     <section class="section">
       <div class="section-inner">
-        <h2 class="section-label">Writing</h2>
+        <h2 class="section-label">{isEs ? 'Notas' : 'Writing'}</h2>
         <ul class="post-list">
           {posts.map(post => (
             <li>
-              <a href={`/en/blog/${post.slug}`} class="post-row">
+              <a href={`/${lang}/blog/${post.slug}`} class="post-row">
                 <span class="post-row-title">{post.data.title}</span>
                 <time class="post-row-date" datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' })}
@@ -147,7 +168,7 @@ const posts = (await getCollection('blog'))
             </li>
           ))}
         </ul>
-        <a href="/blog" class="see-all">All posts →</a>
+        <a href={`/${lang}/blog`} class="see-all">{isEs ? 'Ver todas →' : 'All posts →'}</a>
       </div>
     </section>
   )}

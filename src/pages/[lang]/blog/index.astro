@@ -8,15 +8,16 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: "en" | "es" };
 
+if (lang === "en") return Astro.redirect("/blog", 301);
+
+const isEs = true;
+const locale = "es-ES";
+
 const allPosts = await getCollection("blog");
 const posts = allPosts
   .filter((p) => p.data.lang === lang)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((p) => ({ ...p, slug: p.slug.replace(new RegExp(`-${lang}$`), "") }));
-
-const isEs = lang === "es";
-const locale = isEs ? "es-ES" : "en-US";
-const altLang = isEs ? "en" : "es";
+  .map((p) => ({ ...p, slug: p.slug.replace(/-es$/, "") }));
 ---
 
 <Base
@@ -25,19 +26,11 @@ const altLang = isEs ? "en" : "es";
     ? "Notas sobre ingeniería de software, diseño de sistemas y lanzamientos de código abierto."
     : "Writing about software engineering, systems design, algorithms, and open-source work."}
   lang={lang}
+  altLangUrl="/blog"
 >
   <div class="page">
     <header class="page-header">
-      <div class="page-eyebrow-row">
-        <p class="page-eyebrow">{isEs ? "Notas" : "Writing"}</p>
-        <div class="lang-switch">
-          <a href={`/blog/${altLang}`} class={`lang-opt ${altLang}`}
-            >{altLang.toUpperCase()}</a
-          >
-          <span class="lang-sep">·</span>
-          <span class="lang-opt active">{lang.toUpperCase()}</span>
-        </div>
-      </div>
+      <p class="page-eyebrow">{isEs ? "Notas" : "Writing"}</p>
       <p class="page-subtitle">
         {
           isEs
@@ -51,7 +44,7 @@ const altLang = isEs ? "en" : "es";
       {
         posts.map((post) => (
           <li>
-            <a href={`/blog/${post.slug}/${lang}`} class="post-card">
+            <a href={`/${lang}/blog/${post.slug}`} class="post-card">
               <div class="post-card-body">
                 <h2 class="post-card-title">{post.data.title}</h2>
                 <p class="post-card-desc">{post.data.description}</p>
@@ -93,57 +86,13 @@ const altLang = isEs ? "en" : "es";
     margin: 0 auto 4rem;
   }
 
-  .page-eyebrow-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-
   .page-eyebrow {
+    margin-bottom: 1rem;
     font-family: var(--font-mono);
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-3);
-  }
-
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-  }
-  .lang-opt {
-    color: var(--text-3);
-  }
-  .lang-opt.active {
-    color: var(--text);
-    font-weight: 600;
-  }
-  .lang-opt a,
-  a.lang-opt {
-    color: var(--blue);
-    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
-    transition: border-color 0.15s;
-  }
-  a.lang-opt:hover {
-    border-color: var(--blue);
-  }
-  .lang-sep {
-    color: var(--border);
-  }
-
-  .page-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    color: var(--text);
-    margin-bottom: 1rem;
   }
 
   .page-subtitle {

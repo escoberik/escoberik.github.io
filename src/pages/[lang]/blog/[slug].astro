@@ -13,8 +13,8 @@ export async function getStaticPaths() {
       p => p.data.lang === altLang && p.slug.replace(/-(?:en|es)$/, '') === base
     )
     return {
-      params: { slug: base, lang },
-      props: { post, altLangUrl: hasAlt ? `/blog/${base}/${altLang}` : null },
+      params: { lang, slug: base },
+      props: { post, altLangUrl: hasAlt ? `/${altLang}/blog/${base}` : null },
     }
   })
 }

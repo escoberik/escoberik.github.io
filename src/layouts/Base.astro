@@ -4,6 +4,7 @@ interface Props {
   description?: string
   ogImage?: string
   lang?: 'en' | 'es'
+  altLangUrl?: string | null
 }
 
 const {
@@ -11,13 +12,14 @@ const {
   description = 'Erik Escobedo — Software Engineer with 16+ years of experience. Ex-Google Classroom.',
   ogImage = '/og-default.png',
   lang = 'en',
+  altLangUrl = null,
 } = Astro.props
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-theme-pref="system">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,11 +31,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      (function () {
+        var pref = localStorage.getItem('theme') || 'system';
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var resolved = pref === 'system' ? (dark ? 'dark' : 'light') : pref;
+        document.documentElement.setAttribute('data-theme', resolved);
+        document.documentElement.setAttribute('data-theme-pref', pref);
+      })();
+    </script>
   </head>
   <body>
     <nav class="nav">
       <div class="nav-inner">
-        <a href="/" class="nav-logo">
+        <a href={lang === 'es' ? '/es' : '/'} class="nav-logo">
           <span class="logo-e" style="color:var(--blue)">E</span><span
             class="logo-e" style="color:var(--red)">r</span><span
             class="logo-e" style="color:var(--yellow)">i</span><span
@@ -41,9 +52,55 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
           <span class="logo-rest"> Escobedo</span>
         </a>
         <div class="nav-links">
-          <a href="/blog">Blog</a>
+          <a href={lang === 'es' ? '/es/blog' : '/blog'}>Blog</a>
           <a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
           <a href="https://github.com/escoberik" target="_blank" rel="noopener">GitHub ↗</a>
+          {altLangUrl && (
+            <div class="nav-lang-switch">
+              {lang === 'en' ? (
+                <>
+                  <span class="nlang-active">EN</span>
+                  <span class="nlang-sep">·</span>
+                  <a href={altLangUrl} class="nlang-link">ES</a>
+                </>
+              ) : (
+                <>
+                  <a href={altLangUrl} class="nlang-link">EN</a>
+                  <span class="nlang-sep">·</span>
+                  <span class="nlang-active">ES</span>
+                </>
+              )}
+            </div>
+          )}
+          <div class="theme-switch">
+            <button class="theme-opt to-light" data-theme="light" aria-label="Light theme">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <circle cx="8" cy="8" r="3"/>
+                <line x1="8" y1="1" x2="8" y2="2.5"/>
+                <line x1="8" y1="13.5" x2="8" y2="15"/>
+                <line x1="1" y1="8" x2="2.5" y2="8"/>
+                <line x1="13.5" y1="8" x2="15" y2="8"/>
+                <line x1="3.1" y1="3.1" x2="4.2" y2="4.2"/>
+                <line x1="11.8" y1="11.8" x2="12.9" y2="12.9"/>
+                <line x1="12.9" y1="3.1" x2="11.8" y2="4.2"/>
+                <line x1="4.2" y1="11.8" x2="3.1" y2="12.9"/>
+              </svg>
+            </button>
+            <span class="theme-sep">·</span>
+            <button class="theme-opt to-dark" data-theme="dark" aria-label="Dark theme">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z"/>
+              </svg>
+            </button>
+            <span class="theme-sep">·</span>
+            <button class="theme-opt to-system" data-theme="system" aria-label="System theme">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="2" width="14" height="10" rx="1.5"/>
+                <line x1="5" y1="15" x2="11" y2="15"/>
+                <line x1="8" y1="12" x2="8" y2="15"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -51,6 +108,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <main>
       <slot />
     </main>
+
+    <script>
+      type ThemePref = 'system' | 'dark' | 'light';
+
+      function applyTheme(pref: ThemePref) {
+        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const resolved = pref === 'system' ? (dark ? 'dark' : 'light') : pref;
+        document.documentElement.setAttribute('data-theme', resolved);
+        document.documentElement.setAttribute('data-theme-pref', pref);
+        localStorage.setItem('theme', pref);
+      }
+
+      document.querySelectorAll<HTMLButtonElement>('.theme-opt').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          applyTheme(btn.dataset.theme as ThemePref);
+        });
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const pref = (localStorage.getItem('theme') || 'system') as ThemePref;
+        if (pref === 'system') applyTheme('system');
+      });
+    </script>
 
     <footer class="footer">
       <div class="footer-inner">
@@ -73,7 +153,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(8, 8, 8, 0.85);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -108,6 +188,68 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     transition: color 0.15s;
   }
   .nav-links a:hover { color: var(--text); }
+
+  /* ---- Theme switch ---- */
+  .theme-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.5rem;
+  }
+  .theme-sep {
+    color: var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    user-select: none;
+  }
+  .theme-opt {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--blue);
+    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
+    transition: border-color 0.15s, color 0.15s;
+    line-height: 1;
+  }
+  .theme-opt:hover {
+    border-color: var(--blue);
+  }
+  /* active state — matches .lang-opt.active */
+  [data-theme-pref="light"] .to-light,
+  [data-theme-pref="dark"] .to-dark,
+  [data-theme-pref="system"] .to-system,
+  :not([data-theme-pref]) .to-system {
+    color: var(--text);
+    border-bottom-color: transparent;
+    cursor: default;
+  }
+
+  /* ---- Nav lang switch ---- */
+  .nav-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    margin-left: 0.5rem;
+  }
+  .nlang-active {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .nlang-sep {
+    color: var(--border);
+  }
+  .nlang-link {
+    color: var(--blue);
+    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
+    transition: border-color 0.15s;
+  }
+  .nlang-link:hover { border-color: var(--blue); }
 
   /* ---- Footer ---- */
   .footer {
