@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  const slugs = [...new Set(posts.map(p => p.slug.replace(/-(?:en|es)$/, '')))]
+  return slugs.map(slug => ({ params: { slug } }))
+}
+
+return Astro.redirect(`/blog/${Astro.params.slug}/en`, 301)
+---

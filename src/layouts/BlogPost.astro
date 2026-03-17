@@ -6,18 +6,21 @@ interface Props {
   description: string
   pubDate: Date
   tags?: string[]
+  lang?: 'en' | 'es'
+  altLangUrl?: string | null
 }
 
-const { title, description, pubDate, tags = [] } = Astro.props
+const { title, description, pubDate, tags = [], lang = 'en', altLangUrl = null } = Astro.props
 
-const formattedDate = pubDate.toLocaleDateString('en-US', {
+const locale = lang === 'es' ? 'es-ES' : 'en-US'
+const formattedDate = pubDate.toLocaleDateString(locale, {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 })
 ---
 
-<Base title={`${title} — Erik Escobedo`} description={description}>
+<Base title={`${title} — Erik Escobedo`} description={description} lang={lang}>
   <article class="post">
     <header class="post-header">
       <div class="post-meta">
@@ -27,6 +30,23 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
             {tags.map(tag => <span class="tag">{tag}</span>)}
           </div>
         )}
+        <div class="lang-switch">
+          {lang === 'en' ? (
+            <span class="lang-active">EN</span>
+          ) : altLangUrl ? (
+            <a href={altLangUrl} class="lang-link">EN</a>
+          ) : (
+            <span class="lang-inactive">EN</span>
+          )}
+          <span class="lang-sep">·</span>
+          {lang === 'es' ? (
+            <span class="lang-active">ES</span>
+          ) : altLangUrl ? (
+            <a href={altLangUrl} class="lang-link">ES</a>
+          ) : (
+            <span class="lang-inactive">ES</span>
+          )}
+        </div>
       </div>
       <h1 class="post-title">{title}</h1>
       <p class="post-description">{description}</p>
@@ -65,6 +85,32 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
     gap: 0.5rem;
     flex-wrap: wrap;
   }
+
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+  .lang-active {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .lang-inactive {
+    color: var(--text-3);
+  }
+  .lang-sep {
+    color: var(--border);
+  }
+  .lang-link {
+    color: var(--blue);
+    border-bottom: 1px solid rgba(79,133,244,0.3);
+    transition: border-color 0.15s;
+  }
+  .lang-link:hover { border-color: var(--blue); }
 
   .tag {
     background: var(--bg-3);

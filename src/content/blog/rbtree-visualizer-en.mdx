@@ -1,0 +1,88 @@
+---
+title: "How Do Red-Black Binary Trees Work?"
+description: "I built a React component that interactively visualizes insert, search, and delete operations on a red-black binary tree — step by step."
+pubDate: 2026-03-17
+tags: ["algorithms", "react", "open-source", "data-structures"]
+lang: en
+---
+
+import TreeVisualizerWrapper from '../../components/TreeVisualizerWrapper'
+
+[Red-black binary trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+are elegant and efficient data structures, implemented in countless places such
+as databases, operating systems, and programming languages.
+
+A red-black binary tree is capable of keeping itself (almost) perfectly balanced
+regardless of the order in which elements are inserted or deleted — something
+that ordinary binary search trees cannot do. For example, if you insert the
+numbers 1, 2, 3, and 4 into a traditional BST in that exact order, the nodes
+will end up forming a linked list, leading to poor performance for search,
+insert, and delete operations (O(n) to find 4, for instance). In a red-black
+tree, the same set of numbers stays relatively balanced (never worse than
+O(log n)).
+
+```
+  Traditional BST         Red-black tree
+  (1, 2, 3, 4 in order)   (same elements)
+
+  1                           2
+   \                         / \
+    2                       1   3
+     \                           \
+      3                           4
+       \
+        4
+```
+
+The details of the self-balancing algorithm are covered in many
+[articles](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/),
+[lecture notes](https://algs4.cs.princeton.edu/33balanced/), and
+[books](https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/).
+What was missing was a way to watch the algorithm in action.
+
+So I wrote [rbtrees](https://www.npmjs.com/package/rbtrees), a React component
+that lets you interactively visualize insert, search, and delete operations on a
+red-black binary tree.
+
+Being a React component, it's easy to drop in almost anywhere — like right here:
+
+<div class="embed-breakout">
+  <TreeVisualizerWrapper client:load />
+</div>
+
+## The Stack
+
+- React 18, TypeScript, and Vite
+- Pure SVG: no canvas, no visualization libraries
+- Frame-by-frame animations via `requestAnimationFrame`
+
+## The Architecture
+
+- `RBT/` — implements the tree and its operations with no knowledge of the UI
+- `TreeVisualizer/` — handles rendering and animation
+- Communication between the two happens through a log function the tree calls
+  whenever its state changes, producing a sequence of snapshots that the
+  visualizer replays step by step
+
+## The Challenges
+
+The hardest part was synchronizing animations with algorithm steps. Each
+operation — insert, search, delete — generates multiple internal events
+(comparisons, rotations, recolorings), and each one must translate into a
+coherent visual transition. A particularly tricky case was deletion with a
+successor: the deleted node and the floating node must fade out at the same
+time, which required precise control over exactly when each snapshot is
+recorded.
+
+## The Node Layout Algorithm
+
+Positioning tree nodes on screen sounds straightforward, but it isn't.
+The challenge is that each subtree occupies space that depends on its children,
+and the left and right subtrees must fit together without overlapping.
+
+The solution was to model each subtree as a `Grid`: a structure that describes,
+row by row, how many cells it occupies to the left and right of its root.
+By combining two `Grid`s (one per child), the exact position of the parent node
+can be calculated so that both subtrees are aligned and collision-free. All node
+positions are relative to the root, which keeps the tree centered in the
+viewport regardless of its shape.
