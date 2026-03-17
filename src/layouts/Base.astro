@@ -23,6 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     {altLangUrl && <link rel="alternate" hreflang={lang === 'en' ? 'es' : 'en'} href={new URL(altLangUrl, Astro.site)} />}
     <link rel="alternate" hreflang={lang} href={canonicalURL} />
@@ -36,11 +37,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       (function () {
-        var pref = localStorage.getItem('theme') || 'system';
         var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var resolved = pref === 'system' ? (dark ? 'dark' : 'light') : pref;
-        document.documentElement.setAttribute('data-theme', resolved);
-        document.documentElement.setAttribute('data-theme-pref', pref);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme-pref', 'system');
       })();
     </script>
   </head>
@@ -126,9 +125,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
       });
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        const pref = (localStorage.getItem('theme') || 'system') as ThemePref;
-        if (pref === 'system') applyTheme('system');
+        applyTheme('system');
       });
+
+      document.querySelector('.nlang-link')?.addEventListener('click', function(e) {
+        const hash = window.location.hash
+        if (hash) {
+          e.preventDefault()
+          window.location.href = (this as HTMLAnchorElement).href + hash
+        }
+      })
     </script>
 
     <footer class="footer">
@@ -156,11 +162,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
   }
   .nav-inner {
     max-width: var(--max-w);
     margin: 0 auto;
-    padding: 0 2rem;
     height: 56px;
     display: flex;
     align-items: center;
@@ -189,10 +195,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
   /* ---- Theme switch ---- */
   .theme-switch {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-left: 0.5rem;
+    display: none;
   }
   .theme-sep {
     color: var(--border);
@@ -271,7 +274,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   .footer-links a:hover { color: var(--text-2); }
 
   @media (max-width: 640px) {
+    .nav { padding: 0 1.5rem; }
     .nav-links { gap: 1rem; }
-    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
   }
 </style>

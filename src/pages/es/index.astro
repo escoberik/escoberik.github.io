@@ -19,7 +19,7 @@ const posts = (await getCollection('blog'))
   altLangUrl="/"
 >
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="hero-inner">
       <div class="hero-eyebrow">
         <span class="dot dot-blue"></span>
@@ -51,7 +51,7 @@ const posts = (await getCollection('blog'))
   </section>
 
   <!-- Experience timeline -->
-  <section class="section">
+  <section class="section" id="experience">
     <div class="section-inner">
       <h2 class="section-label">Experiencia</h2>
       <div class="timeline">
@@ -106,10 +106,10 @@ const posts = (await getCollection('blog'))
   </section>
 
   <!-- Featured project -->
-  <section class="section">
+  <section class="section" id="open-source">
     <div class="section-inner">
       <h2 class="section-label">Código Abierto</h2>
-      <a href="/es/blog/rbtree-visualizer" class="project-card">
+      <a href="https://www.npmjs.com/package/rbtrees" class="project-card" target="_blank" rel="noopener">
         <div class="project-card-header">
           <div class="project-name">rbtrees</div>
           <div class="project-npm">npm ↗</div>
@@ -126,7 +126,7 @@ const posts = (await getCollection('blog'))
           <span class="ptag">Algorithms</span>
         </div>
         <div class="project-footer">
-          <span class="project-read">Leer el post →</span>
+          <span class="project-read">Ver en npm →</span>
         </div>
       </a>
     </div>
@@ -134,7 +134,7 @@ const posts = (await getCollection('blog'))
 
   <!-- Writing -->
   {posts.length > 0 && (
-    <section class="section">
+    <section class="section" id="writing">
       <div class="section-inner">
         <h2 class="section-label">Notas</h2>
         <ul class="post-list">
@@ -155,6 +155,37 @@ const posts = (await getCollection('blog'))
   )}
 </Base>
 
+
+<script>
+  const sections = Array.from(document.querySelectorAll('section[id]'))
+
+  let hasScrolled = false
+  window.addEventListener('scroll', () => { hasScrolled = true }, { once: true, passive: true })
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!hasScrolled) return
+    for (const entry of entries) {
+      let active: Element | null = null
+
+      if (entry.isIntersecting) {
+        active = entry.target
+      } else if (entry.boundingClientRect.top > (entry.rootBounds?.bottom ?? 0)) {
+        // Exited zone going downward = scrolling up → activate previous section
+        const idx = sections.indexOf(entry.target)
+        if (idx > 0) active = sections[idx - 1]
+      }
+      // Exited zone going upward = scrolling down → do nothing, next section will fire
+
+      if (active) {
+        const id = (active as HTMLElement).id
+        history.replaceState(null, '', id === 'hero' ? window.location.pathname : `#${id}`)
+      }
+    }
+  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 })
+
+  sections.forEach(s => observer.observe(s))
+</script>
+
 <style>
   /* ---- Hero ---- */
   .hero {
@@ -163,7 +194,7 @@ const posts = (await getCollection('blog'))
     display: flex;
     align-items: center;
     overflow: hidden;
-    padding: 5rem 2rem 6rem;
+    padding: 2.5rem 2rem 6rem;
   }
 
   .hero-inner {
@@ -209,6 +240,7 @@ const posts = (await getCollection('blog'))
     font-size: clamp(4rem, 12vw, 9rem);
     line-height: 1;
     margin-bottom: 1.5rem;
+    margin-left: -0.075em;
     animation: fade-up 0.6s ease both;
     animation-delay: 0.2s;
     display: flex;
@@ -236,7 +268,7 @@ const posts = (await getCollection('blog'))
     color: var(--text-3);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     animation: fade-up 0.6s ease both;
     animation-delay: 0.3s;
   }
@@ -246,7 +278,7 @@ const posts = (await getCollection('blog'))
     font-size: 1.1rem;
     line-height: 1.75;
     color: var(--text-2);
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     animation: fade-up 0.6s ease both;
     animation-delay: 0.4s;
   }
@@ -507,7 +539,10 @@ const posts = (await getCollection('blog'))
 
   /* ---- Responsive ---- */
   @media (max-width: 640px) {
-    .hero { padding: 4rem 1.5rem 5rem; }
+    .hero { padding: 2rem 1.5rem 5rem; align-items: flex-start; }
+    .hero-bio { height: calc(1.1rem * 1.75 * 6); overflow: hidden; }
+    .hero-actions { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
     .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .tl-left { flex-direction: row-reverse; justify-content: flex-end; }
     .section { padding: 3rem 1.5rem; }
