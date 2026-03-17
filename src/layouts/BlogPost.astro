@@ -167,7 +167,7 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
 
   .post-body p {
     margin-bottom: 1.5rem;
-    color: rgba(235, 235, 235, 0.85);
+    color: var(--text);
   }
 
   .post-body a {
@@ -189,11 +189,10 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
     border: 1px solid var(--border);
     padding: 0.1em 0.35em;
     border-radius: 3px;
-    color: #c9d1d9;
+    color: var(--text-2);
   }
 
   .post-body pre {
-    background: var(--bg-2);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1.25rem 1.5rem;
@@ -208,7 +207,31 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
     border: none;
     padding: 0;
     font-size: inherit;
-    color: #c9d1d9;
+  }
+
+  /* Shiki dual-theme: default is dark */
+  .post-body .astro-code,
+  .post-body .astro-code span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+    font-style: var(--shiki-dark-font-style);
+    font-weight: var(--shiki-dark-font-weight);
+    text-decoration: var(--shiki-dark-text-decoration);
+  }
+
+  [data-theme='light'] .post-body .astro-code,
+  [data-theme='light'] .post-body .astro-code span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+    font-style: var(--shiki-light-font-style);
+    font-weight: var(--shiki-light-font-weight);
+    text-decoration: var(--shiki-light-text-decoration);
+  }
+
+  /* Astro island alignment */
+  .post-body astro-island {
+    display: block;
+    width: 100%;
   }
 
   .post-body blockquote {
