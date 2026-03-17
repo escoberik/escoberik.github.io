@@ -1,76 +1,91 @@
 ---
-title: "Introducing rbtrees: An Interactive Red-Black Tree Visualizer"
-description: "I built a React component that walks you through every comparison, rotation, and recolor as a Red-Black Tree evolves — one step at a time."
-pubDate: 2026-03-16
+title: "¿Cómo funcionan los Árboles Binarios Rojo-Negro?"
+description: "Construí un React Component que visualiza de forma interactiva las operaciones de inserción, búsqueda y eliminación en un árbol binario rojo-negro — paso a paso."
+pubDate: 2026-03-17
 tags: ["algorithms", "react", "open-source", "data-structures"]
 ---
 
 import TreeVisualizerWrapper from '../../components/TreeVisualizerWrapper'
 
-Red-Black Trees are one of those data structures that everybody knows they *should* understand but most people never actually do. They live inside your operating system's process scheduler, your database's index engine (MySQL InnoDB, for one), and C++'s `std::map`. If you've ever wondered how a sorted collection stays balanced while still supporting O(log n) insert, delete, and lookup — this is the structure doing the work.
+Los
+[árboles binarios rojo-negro](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+son estructuras de datos elegantes y eficientes, implementadas en un sinfín de
+lugares como bases de datos, sistemas operativos y lenguajes de programación.
 
-The problem with learning Red-Black Trees isn't the concept. It's the *mechanics*. A textbook description of rotations and recoloring rules is nearly useless without seeing them happen live. I've read those descriptions multiple times over the years and still felt uncertain whether I had actually internalized the algorithm or just memorized the rules.
+Un árbol binario rojo-negro es capaz de mantenerse (casi) perfectamente
+balanceado sin importar el orden en que se inserten o eliminen los elementos,
+cosa que no ocurre con los árboles binarios de búsqueda tradicionales. Por
+ejemplo, si en un árbol binario de búsqueda tradicional insertamos los números
+1, 2, 3 y 4, precisamente en este orden, los nodos terminarán formando una lista
+enlazada, lo que resultará en un rendimiento deficiente para las operaciones de
+búsqueda, inserción y eliminación (O(n) para encontrar el 4, por ejemplo).
+Mientras que, en un árbol rojo-negro, el mismo conjunto de números se mantendría
+relativamente balanceado (nunca mayor a O(log n)).
 
-So I built **rbtrees**: a React component that lets you insert, search, or delete a value and then step through every comparison, rotation, and recolor the algorithm performs — one frame at a time.
+```
+  BST tradicional         Árbol rojo-negro
+  (1, 2, 3, 4 en orden)   (mismos elementos)
 
-## Try it
+  1                           2
+   \                         / \
+    2                       1   3
+     \                           \
+      3                           4
+       \
+        4
+```
+
+Los detalles sobre el algoritmo de auto-balanceo de estas estructuras aparecen
+escritos en numerosos
+[artículos](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/),
+[apuntes](https://algs4.cs.princeton.edu/33balanced/) y
+[libros](https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/).
+Pero lo que hacía falta, era una manera de ver el algoritmo en acción.
+
+Por eso escribí [rbtrees](https://www.npmjs.com/package/rbtrees), un React
+Component que permite visualizar de forma interactiva los procesos de insercion,
+búsqueda y eliminación de nodos en un árbol binario rojo-negro.
+
+Al ser un React Component, es fácil de integrar en prácticamente cualquier lado,
+como por ejemplo, justo aquí debajo:
 
 <div class="embed-breakout">
   <TreeVisualizerWrapper client:load />
 </div>
 
-## What it does
+## El Stack
 
-The visualizer runs the actual Red-Black Tree algorithm and records every event as it happens:
+- React 18, TypeScript y Vite
+- SVG puro: sin canvas, sin librerías de visualización
+- Animaciones con interpolación frame a frame via `requestAnimationFrame`
 
-- **Comparisons** — each node visited while traversing down the tree
-- **Rotations** — left and right rotations that restore balance
-- **Recolors** — the color flips that maintain the Red-Black invariants
-- **Terminal states** — node inserted, value found, not found, or deleted
+## La Arquitectura
 
-You can step forward and backward through this event log at your own pace. A floating indicator travels the search path and lands (on insert), hovers (on find), or fades (on not-found or delete). The active node gets a highlight ring at each step.
+- `RBT/` — implementa el árbol y sus operaciones sin saber nada de la UI
+- `TreeVisualizer/` — se encarga de renderizar y animar
+- La comunicación entre ambas ocurre a través de una función de log que el árbol
+  llama cada vez que su estado cambia, generando una secuencia de snapshots que
+  el visualizador reproduce paso a paso
 
-All the graphics are SVG — no canvas, no third-party chart library.
+## Los Retos
 
-## Why step-by-step matters
+El mayor reto fue sincronizar las animaciones con los pasos del algoritmo. Cada
+operación —inserción, búsqueda, eliminación— genera múltiples eventos internos
+(comparaciones, rotaciones, recoloraciones) y cada uno debe traducirse en una
+transición visual coherente. Un caso especialmente delicado fue la eliminación
+con sucesor: el nodo eliminado y el nodo flotante deben desvanecerse al mismo
+tiempo, lo que exigió controlar con precisión el momento exacto en que se
+registra cada snapshot.
 
-Most tree visualizers animate the final state. You click "insert 42", the tree rearranges itself with a swoosh, and you're supposed to have learned something. But the learning happens in the middle steps — specifically in the moments where the algorithm detects a violation and decides between a rotation and a recolor.
+## El Algoritmo de Distribución de los Nodos en un Grid
 
-Stepping through a violation gives you the ability to pause at the exact frame where the invariant breaks and ask: *why did it do that?* That's the question a fast animation can't let you ask.
+Posicionar los nodos de un árbol en pantalla parece sencillo, pero no lo es.
+El reto es que cada subárbol ocupa un espacio que depende de sus hijos, y los
+subárboles izquierdo y derecho deben encajar sin solaparse.
 
-## Installation
-
-```bash
-npm install rbtrees
-```
-
-```tsx
-import { TreeVisualizer } from 'rbtrees'
-import 'rbtrees/style.css'
-
-export default function App() {
-  return <TreeVisualizer />
-}
-```
-
-`TreeVisualizer` is self-contained — no props, no external state. It manages its own tree and renders everything inline.
-
-## Implementation notes
-
-A few decisions worth documenting:
-
-**React 18 + SVG only.** I wanted full control over the rendering without introducing a canvas abstraction or a chart library dependency. SVG gives you addressable elements with CSS transitions, which is exactly what you need for smooth node movement and color changes.
-
-**Animation via CSS transitions, not JS timers.** Each step updates React state, which triggers re-renders. The transitions between positions and colors are handled entirely by CSS `transition` on the SVG elements. This keeps the animation logic out of the component and makes the step-by-step pause/play behavior trivial — you're just controlling when state updates happen.
-
-**Recording events, not diffs.** The algorithm runs in full, recording a log of events, before any rendering happens. The UI then plays back this log. This separation means the algorithm code has no rendering concerns, and the rendering code has no algorithmic concerns.
-
-## What's next
-
-I want to add:
-
-- A way to load a preset tree (e.g., "show me a tree with 15 nodes already inserted")
-- Annotations explaining *why* a rotation or recolor was needed at each step
-- A deletion walkthrough (the current version handles deletion but the explanation text could be richer)
-
-The package is on [npm](https://www.npmjs.com/package/rbtrees) and the source is on [GitHub](https://github.com/escoberik/rbtree-visualizer). Issues and PRs welcome.
+La solución fue modelar cada subárbol como un `Grid`: una estructura que
+describe, fila por fila, cuántas celdas ocupa a la izquierda y a la derecha de
+su raíz. Al combinar dos `Grid`s (uno por cada hijo), se puede calcular la
+posición exacta del nodo padre de forma que ambos subárboles queden alineados y
+sin colisiones. Las posiciones de todos los nodos son relativas a la raíz, lo
+que mantiene el árbol centrado en el viewport independientemente de su forma.
