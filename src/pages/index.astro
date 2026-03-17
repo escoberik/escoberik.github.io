@@ -25,7 +25,8 @@ const posts = (await getCollection('blog'))
         <span>Available for new opportunities</span>
       </div>
       <h1 class="hero-name">
-        Erik<br /><em>Escobedo</em>
+        <span class="hn-erik"><span style="color:var(--blue)">E</span><span style="color:var(--red)">r</span><span style="color:var(--yellow)">i</span><span style="color:var(--green)">k</span></span>
+        <span class="hn-escobedo">Escobedo</span>
       </h1>
       <p class="hero-title">Software Engineer</p>
       <p class="hero-bio">
@@ -204,21 +205,28 @@ const posts = (await getCollection('blog'))
   }
 
   .hero-name {
-    font-family: var(--font-serif);
     font-size: clamp(4rem, 12vw, 9rem);
-    font-weight: 600;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    color: var(--text);
+    line-height: 1;
     margin-bottom: 1.5rem;
     animation: fade-up 0.6s ease both;
     animation-delay: 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05em;
   }
 
-  .hero-name em {
-    font-style: italic;
+  .hn-erik {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .hn-escobedo {
+    font-family: var(--font-mono);
     font-weight: 300;
     color: var(--text-2);
+    letter-spacing: 0.03em;
   }
 
   .hero-title {

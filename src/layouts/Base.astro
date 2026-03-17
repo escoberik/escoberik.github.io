@@ -49,13 +49,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
             class="logo-e" style="color:var(--red)">r</span><span
             class="logo-e" style="color:var(--yellow)">i</span><span
             class="logo-e" style="color:var(--green)">k</span>
-          <span class="logo-rest"> Escobedo</span>
         </a>
         <div class="nav-links">
-          <a href={lang === 'es' ? '/es/blog' : '/blog'}>Blog</a>
-          <a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
-          <a href="https://github.com/escoberik" target="_blank" rel="noopener">GitHub ↗</a>
-          {altLangUrl && (
+{altLangUrl && (
             <div class="nav-lang-switch">
               {lang === 'en' ? (
                 <>
@@ -169,15 +165,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   }
   .nav-logo {
     font-family: var(--font-mono);
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 700;
     letter-spacing: -0.01em;
     display: flex;
     align-items: baseline;
     gap: 0;
   }
   .logo-e { font-weight: 700; }
-  .logo-rest { color: var(--text-2); margin-left: 1px; }
   .nav-links {
     display: flex;
     gap: 2rem;
