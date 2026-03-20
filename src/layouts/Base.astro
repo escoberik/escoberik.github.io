@@ -1,5 +1,6 @@
 ---
-import { analytics } from '../config/site'
+import { analytics } from "../config/site";
+import Icon from "../components/Icon.astro";
 
 interface Props {
   title: string;
@@ -55,15 +56,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       (function () {
+        var pref = localStorage.getItem("theme") || "system";
         var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.setAttribute(
-          "data-theme",
-          dark ? "dark" : "light",
-        );
-        document.documentElement.setAttribute("data-theme-pref", "system");
+        var resolved = pref === "system" ? (dark ? "dark" : "light") : pref;
+        document.documentElement.setAttribute("data-theme", resolved);
+        document.documentElement.setAttribute("data-theme-pref", pref);
       })();
     </script>
-    <script defer src={analytics.url} data-website-id={analytics.websiteId} data-domains={analytics.domains}></script>
+    <script
+      defer
+      src={analytics.url}
+      data-website-id={analytics.websiteId}
+      data-domains={analytics.domains}></script>
   </head>
   <body>
     <nav class="nav">
@@ -81,93 +85,44 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           {
             altLangUrl && (
               <div class="nav-lang-switch">
-                {lang === "en" ? (
-                  <>
-                    <span class="nlang-active">EN</span>
-                    <span class="nlang-sep">·</span>
-                    <a href={altLangUrl} class="nlang-link">
-                      ES
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <a href={altLangUrl} class="nlang-link">
-                      EN
-                    </a>
-                    <span class="nlang-sep">·</span>
-                    <span class="nlang-active">ES</span>
-                  </>
-                )}
+                <div class="nlang-theme">
+                  <button class="theme-opt to-light" data-theme="light" aria-label="Light theme">
+                    <Icon name="sun" size={20} />
+                  </button>
+                  <button class="theme-opt to-dark" data-theme="dark" aria-label="Dark theme">
+                    <Icon name="moon" size={20} />
+                  </button>
+                  <button class="theme-opt to-system" data-theme="system" aria-label="System theme">
+                    <Icon name="system" size={20} />
+                  </button>
+                  <span class="nlang-sep"></span>
+                </div>
+                <a
+                  href={altLangUrl}
+                  class="nlang-other"
+                  aria-label={lang === "en" ? "Español" : "English"}
+                >
+                  <span class="flag-wrap">
+                    {lang === "en" ? "🇲🇽" : "🇺🇸"}
+                    <span class="flag-badge">{lang === "en" ? "es" : "en"}</span>
+                  </span>
+                </a>
+                <span
+                  class="nlang-current"
+                  aria-label={lang === "en" ? "English" : "Español"}
+                >
+                  <span class="flag-wrap">
+                    {lang === "en" ? "🇺🇸" : "🇲🇽"}
+                    <span class="flag-badge">{lang === "en" ? "en" : "es"}</span>
+                    <span class="theme-badge">
+                      <span class="tb-light"><Icon name="sun" size={8} strokeWidth={2.5} /></span>
+                      <span class="tb-dark"><Icon name="moon" size={8} strokeWidth={2.5} /></span>
+                    </span>
+                  </span>
+                </span>
               </div>
             )
           }
-          <div class="theme-switch">
-            <button
-              class="theme-opt to-light"
-              data-theme="light"
-              aria-label="Light theme"
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              >
-                <circle cx="8" cy="8" r="3"></circle>
-                <line x1="8" y1="1" x2="8" y2="2.5"></line>
-                <line x1="8" y1="13.5" x2="8" y2="15"></line>
-                <line x1="1" y1="8" x2="2.5" y2="8"></line>
-                <line x1="13.5" y1="8" x2="15" y2="8"></line>
-                <line x1="3.1" y1="3.1" x2="4.2" y2="4.2"></line>
-                <line x1="11.8" y1="11.8" x2="12.9" y2="12.9"></line>
-                <line x1="12.9" y1="3.1" x2="11.8" y2="4.2"></line>
-                <line x1="4.2" y1="11.8" x2="3.1" y2="12.9"></line>
-              </svg>
-            </button>
-            <span class="theme-sep">·</span>
-            <button
-              class="theme-opt to-dark"
-              data-theme="dark"
-              aria-label="Dark theme"
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z"></path>
-              </svg>
-            </button>
-            <span class="theme-sep">·</span>
-            <button
-              class="theme-opt to-system"
-              data-theme="system"
-              aria-label="System theme"
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="1" y="2" width="14" height="10" rx="1.5"></rect>
-                <line x1="5" y1="15" x2="11" y2="15"></line>
-                <line x1="8" y1="12" x2="8" y2="15"></line>
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
     </nav>
@@ -180,11 +135,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       type ThemePref = "system" | "dark" | "light";
 
       function applyTheme(pref: ThemePref) {
+        document.documentElement.classList.add("theme-transition");
         const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         const resolved = pref === "system" ? (dark ? "dark" : "light") : pref;
         document.documentElement.setAttribute("data-theme", resolved);
         document.documentElement.setAttribute("data-theme-pref", pref);
         localStorage.setItem("theme", pref);
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("theme-transition");
+        }, 400);
       }
 
       document
@@ -202,7 +161,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         });
 
       document
-        .querySelector(".nlang-link")
+        .querySelector(".nlang-other")
         ?.addEventListener("click", function (this: HTMLAnchorElement, e) {
           const hash = window.location.hash;
           if (hash) {
@@ -210,6 +169,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             window.location.href = this.href + hash;
           }
         });
+
+      const langSwitch = document.querySelector(".nav-lang-switch");
+      langSwitch?.addEventListener("mouseenter", () => langSwitch.classList.add("is-open"));
+      langSwitch?.addEventListener("mouseleave", () => langSwitch.classList.remove("is-open"));
+      document.querySelector(".nlang-current")?.addEventListener("click", () => {
+        langSwitch?.classList.toggle("is-open");
+      });
+      window.addEventListener("scroll", () => langSwitch?.classList.remove("is-open"), { passive: true });
     </script>
 
     <footer class="footer">
@@ -271,21 +238,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
   .nav-links {
     display: flex;
+    align-items: center;
+    align-self: stretch;
     gap: 2rem;
     font-size: 0.875rem;
     color: var(--text-2);
   }
-  .nav-links a {
-    transition: color 0.15s;
-  }
-  .nav-links a:hover {
-    color: var(--text);
-  }
 
   /* ---- Theme switch ---- */
-  .theme-switch {
-    display: none;
-  }
   .theme-sep {
     color: var(--border);
     font-family: var(--font-mono);
@@ -323,26 +283,143 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   .nav-lang-switch {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
+    justify-content: right;
+    align-self: stretch;
+    gap: 1.2rem;
     margin-left: 0.5rem;
+    font-size: 1.5rem;
+    padding: 0 0.75rem;
+    overflow: hidden;
+    max-width: 3.5rem;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 1rem;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    transition:
+      max-width 0.35s ease,
+      background 0.25s ease,
+      border-color 0.25s ease;
   }
-  .nlang-active {
-    color: var(--text);
-    font-weight: 600;
+  .nav-lang-switch.is-open {
+    max-width: 13rem;
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.13);
+  }
+  [data-theme="light"] .nav-lang-switch {
+    background: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+  }
+  [data-theme="light"] .nav-lang-switch.is-open {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.09);
+  }
+  .nlang-current {
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-lang-switch.is-open .nlang-other {
+    opacity: 1;
+  }
+  .nlang-theme {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: -0.7rem;
+    opacity: 0;
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-lang-switch.is-open .nlang-theme {
+    opacity: 1;
+  }
+  .nlang-theme .theme-opt {
+    color: rgba(255, 255, 255, 0.45);
+    border-bottom: none;
+    cursor: pointer;
+  }
+  .nlang-theme .theme-opt:hover {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  [data-theme-pref="light"] .nlang-theme .to-light,
+  [data-theme-pref="dark"] .nlang-theme .to-dark,
+  [data-theme-pref="system"] .nlang-theme .to-system {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  [data-theme="light"] .nlang-theme .theme-opt {
+    color: rgba(0, 0, 0, 0.3);
+    border-bottom: none;
+  }
+  [data-theme="light"] .nlang-theme .theme-opt:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  [data-theme="light"][data-theme-pref="light"] .nlang-theme .to-light,
+  [data-theme="light"][data-theme-pref="dark"] .nlang-theme .to-dark,
+  [data-theme="light"][data-theme-pref="system"] .nlang-theme .to-system {
+    color: rgba(0, 0, 0, 0.85);
   }
   .nlang-sep {
-    color: var(--border);
+    width: 1px;
+    align-self: stretch;
+    background: var(--border);
+    margin: 0.6rem 0.15rem;
+    opacity: 0.5;
   }
-  .nlang-link {
-    color: var(--blue);
-    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
-    transition: border-color 0.15s;
+  .nlang-other {
+    /* display: none; */
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .nlang-link:hover {
-    border-color: var(--blue);
+  .flag-wrap {
+    position: relative;
+    display: inline-flex;
+    line-height: 1;
+  }
+  .theme-badge {
+    position: absolute;
+    top: -7px;
+    right: -10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0.15em;
+    color: var(--text-2);
+    pointer-events: none;
+    user-select: none;
+  }
+  [data-theme-pref="light"] .theme-badge,
+  [data-theme-pref="dark"] .theme-badge {
+    display: flex;
+  }
+  .tb-light, .tb-dark, .tb-system {
+    display: none;
+    line-height: 1;
+  }
+  [data-theme-pref="light"] .tb-light,
+  [data-theme-pref="dark"] .tb-dark {
+    display: flex;
+  }
+  .flag-badge {
+    position: absolute;
+    bottom: -6px;
+    right: -10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.15em 0.3em;
+    color: var(--text-2);
+    letter-spacing: 0.03em;
+    pointer-events: none;
+    user-select: none;
   }
 
   /* ---- Footer ---- */
