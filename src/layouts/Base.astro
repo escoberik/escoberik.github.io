@@ -344,6 +344,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     -webkit-tap-highlight-color: transparent;
     opacity: 1;
     transition: opacity 0.25s linear;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   .nav-lang-switch.is-idle .nlang-current {
     opacity: 0.5;
