@@ -24,7 +24,7 @@ const { lang, altLangUrl } = Astro.props;
     <div class="nav-links">
       {
         altLangUrl && (
-          <div class="nav-lang-switch">
+          <div class="nav-lang-switch is-idle">
             <div class="nlang-theme">
               <button class="theme-opt to-light" data-theme="light" aria-label="Light theme">
                 <Icon name="sun" size={20} />
@@ -123,12 +123,6 @@ const { lang, altLangUrl } = Astro.props;
       idleTimer = null;
     }, 5000);
   }
-
-  // Start idle timer immediately on page load
-  idleTimer = setTimeout(() => {
-    langSwitch?.classList.add("is-idle");
-    idleTimer = null;
-  }, 5000);
 
   langSwitch?.addEventListener("mouseenter", openSwitch);
   langSwitch?.addEventListener("mouseleave", closeSwitch);
