@@ -1,0 +1,54 @@
+---
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-copy"
+      >© {new Date().getFullYear()} Erik Escobedo</span
+    >
+    <div class="footer-links">
+      <a href="https://github.com/escoberik" target="_blank" rel="noopener"
+        >GitHub</a
+      >
+      <a href="mailto:erik@escobedo.dev">Email</a>
+      <a
+        href="https://www.toptal.com/developers/resume/erik-escobedo"
+        target="_blank"
+        rel="noopener">Toptal</a
+      >
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 6rem;
+  }
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-3);
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-links a:hover {
+    color: var(--text-2);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  }
+</style>
