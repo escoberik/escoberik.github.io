@@ -171,12 +171,35 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         });
 
       const langSwitch = document.querySelector(".nav-lang-switch");
-      langSwitch?.addEventListener("mouseenter", () => langSwitch.classList.add("is-open"));
-      langSwitch?.addEventListener("mouseleave", () => langSwitch.classList.remove("is-open"));
+
+      let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+      function openSwitch() {
+        if (idleTimer !== null) { clearTimeout(idleTimer); idleTimer = null; }
+        langSwitch?.classList.remove("is-idle");
+        langSwitch?.classList.add("is-open");
+      }
+
+      function closeSwitch() {
+        langSwitch?.classList.remove("is-open");
+        idleTimer = setTimeout(() => {
+          langSwitch?.classList.add("is-idle");
+          idleTimer = null;
+        }, 5000);
+      }
+
+      // Start idle timer immediately on page load
+      idleTimer = setTimeout(() => {
+        langSwitch?.classList.add("is-idle");
+        idleTimer = null;
+      }, 5000);
+
+      langSwitch?.addEventListener("mouseenter", openSwitch);
+      langSwitch?.addEventListener("mouseleave", closeSwitch);
       document.querySelector(".nlang-current")?.addEventListener("click", () => {
-        langSwitch?.classList.toggle("is-open");
+        langSwitch?.classList.contains("is-open") ? closeSwitch() : openSwitch();
       });
-      window.addEventListener("scroll", () => langSwitch?.classList.remove("is-open"), { passive: true });
+      window.addEventListener("scroll", closeSwitch, { passive: true });
     </script>
 
     <footer class="footer">
@@ -319,6 +342,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    opacity: 1;
+    transition: opacity 0.25s linear;
+  }
+  .nav-lang-switch.is-idle .nlang-current {
+    opacity: 0.5;
+    transition: opacity 5s linear;
   }
   .nav-lang-switch.is-open .nlang-other {
     opacity: 1;
