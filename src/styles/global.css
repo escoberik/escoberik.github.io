@@ -62,10 +62,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.theme-transition,
-.theme-transition *,
-.theme-transition *::before,
-.theme-transition *::after {
+.theme-transition *:not(.nav-lang-switch):not(.nav-lang-switch *),
+.theme-transition *:not(.nav-lang-switch):not(.nav-lang-switch *)::before,
+.theme-transition *:not(.nav-lang-switch):not(.nav-lang-switch *)::after {
   transition:
     background-color 0.4s ease,
     color 0.4s ease,
