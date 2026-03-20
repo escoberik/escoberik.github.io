@@ -63,7 +63,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.documentElement.setAttribute("data-theme-pref", "system");
       })();
     </script>
-    <script defer src={analytics.url} data-website-id={analytics.websiteId}></script>
+    <script defer src={analytics.url} data-website-id={analytics.websiteId} data-domains={analytics.domains}></script>
   </head>
   <body>
     <nav class="nav">
