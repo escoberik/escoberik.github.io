@@ -268,6 +268,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     color: var(--text-2);
   }
 
+  .nav-lang-switch a,
+  .nav-lang-switch button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* ---- Theme switch ---- */
   .theme-sep {
     color: var(--border);
@@ -310,13 +315,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     align-self: stretch;
     gap: 1.2rem;
     margin-left: 0.5rem;
+    margin-right: -1.0rem;
     font-size: 1.5rem;
-    padding: 0 0.75rem;
+    padding: 0 1.25rem;
     overflow: hidden;
     max-width: 3.5rem;
     background: rgba(255, 255, 255, 0);
     border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     transition:
