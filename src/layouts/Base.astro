@@ -1,4 +1,6 @@
 ---
+import { analytics } from '../config/site'
+
 interface Props {
   title: string;
   description?: string;
@@ -61,10 +63,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.documentElement.setAttribute("data-theme-pref", "system");
       })();
     </script>
-    <script
-      defer
-      src="https://analytics.escobedo.dev/script.js"
-      data-website-id="75b67fd4-12c9-4f9c-8ca3-ccd1d08f3114"></script>
+    <script defer src={analytics.url} data-website-id={analytics.websiteId}></script>
   </head>
   <body>
     <nav class="nav">
@@ -204,11 +203,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       document
         .querySelector(".nlang-link")
-        ?.addEventListener("click", function (e) {
+        ?.addEventListener("click", function (this: HTMLAnchorElement, e) {
           const hash = window.location.hash;
           if (hash) {
             e.preventDefault();
-            window.location.href = (this as HTMLAnchorElement).href + hash;
+            window.location.href = this.href + hash;
           }
         });
     </script>
@@ -236,7 +235,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <style is:global>
   @import "../styles/global.css";
+</style>
 
+<style>
   /* ---- Nav ---- */
   .nav {
     position: sticky;
@@ -308,7 +309,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   .theme-opt:hover {
     border-color: var(--blue);
   }
-  /* active state — matches .lang-opt.active */
+  /* active state */
   [data-theme-pref="light"] .to-light,
   [data-theme-pref="dark"] .to-dark,
   [data-theme-pref="system"] .to-system,

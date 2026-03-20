@@ -58,7 +58,8 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
   </article>
 </Base>
 
-<style is:global>
+<style>
+  /* Structural elements defined in this layout's template */
   .post {
     max-width: var(--max-w);
     margin: 0 auto;
@@ -107,7 +108,7 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
   }
   .lang-link {
     color: var(--blue);
-    border-bottom: 1px solid rgba(79,133,244,0.3);
+    border-bottom: 1px solid rgba(79, 133, 244, 0.3);
     transition: border-color 0.15s;
   }
   .lang-link:hover { border-color: var(--blue); }
@@ -139,7 +140,6 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
     padding-left: 1rem;
   }
 
-  /* ---- Prose body ---- */
   .post-body {
     max-width: var(--prose-w);
     margin: 0 auto;
@@ -147,7 +147,10 @@ const formattedDate = pubDate.toLocaleDateString(locale, {
     line-height: 1.8;
     color: var(--text);
   }
+</style>
 
+<style is:global>
+  /* Prose body descendants target MDX slot content — must be global */
   .post-body h2 {
     font-family: var(--font-serif);
     font-size: 1.75rem;

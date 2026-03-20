@@ -10,10 +10,11 @@ export async function getStaticPaths() {
     .filter(p => p.data.lang === 'en')
     .map(post => {
       const base = transformSlug(post.slug)
-      const hasEs = allPosts.some(p => p.data.lang === 'es' && transformSlug(p.slug) === base)
+      const altSlug = post.data.alternateSlug ?? base
+      const hasEs = allPosts.some(p => p.data.lang === 'es' && transformSlug(p.slug) === altSlug)
       return {
         params: { slug: base },
-        props: { post, altLangUrl: hasEs ? `/es/blog/${base}` : null },
+        props: { post, altLangUrl: hasEs ? `/es/blog/${altSlug}` : null },
       }
     })
 }
