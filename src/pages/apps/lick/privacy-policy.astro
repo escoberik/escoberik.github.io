@@ -1,0 +1,72 @@
+---
+import Base from '../../../layouts/Base.astro'
+---
+
+<Base
+  title="Privacy Policy — Lick Metronome"
+  description="Privacy policy for the Lick metronome app."
+>
+  <div class="page">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: May 11, 2026</p>
+
+    <p>Lick is a metronome app built by Érik Escobedo. This app is provided at no cost and is intended for use as is.</p>
+
+    <h2>Information Collection</h2>
+    <p>Lick does not collect, store, or transmit any personal data. The app does not require an account, does not access the internet, and does not use analytics or advertising SDKs.</p>
+
+    <h2>Device Permissions</h2>
+    <p>Lick does not request any special device permissions.</p>
+
+    <h2>Third-Party Services</h2>
+    <p>Lick does not use any third-party services.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>This privacy policy may be updated from time to time. Any changes will be reflected on this page with an updated date.</p>
+
+    <h2>Contact</h2>
+    <p>If you have any questions, contact <a href="mailto:erik@escobedo.dev">erik@escobedo.dev</a>.</p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    max-width: var(--prose-w);
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .updated {
+    font-size: 0.85rem;
+    color: var(--text-3);
+    margin-bottom: 2.5rem;
+  }
+
+  a {
+    color: var(--blue);
+  }
+</style>
