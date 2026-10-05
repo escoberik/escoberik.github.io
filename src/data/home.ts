@@ -34,7 +34,7 @@ export const homeData: Record<'en' | 'es', HomeData> = {
     altLangUrl: '/es',
     eyebrow: 'Available for new opportunities',
     heroTitle: 'Software Engineer',
-    heroBioBefore: '16+ years building systems at scale. Three years at',
+    heroBioBefore: '17+ years building systems at scale. Three years at',
     heroBioAfter:
       'Classroom, where I led API migrations for millions of users and sunset legacy platforms without breaking a thing. I specialize in untangling complexity and making it disappear.',
     resumeLabel: 'Resume',
